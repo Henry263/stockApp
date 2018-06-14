@@ -1,0 +1,18 @@
+import React, {Component} from 'react';
+
+class HomepageTopBar extends Component{
+    render(){
+        return(
+            <div className="topbar">
+                <div className="appLogo-holder">
+                    Logo here
+                </div>
+                <div className="stockAnalytics-holder">
+                    Stock Analytics Data
+                </div>
+            </div>
+            )
+    }
+}
+
+export default HomepageTopBar;
