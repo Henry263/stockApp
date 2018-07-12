@@ -8,7 +8,7 @@ class HomepageTopBar extends Component{
                     Logo here
                 </div>
                 <div className="stockAnalytics-holder">
-                    Stock Analytics Data
+                    Overall stck balance Data
                 </div>
             </div>
             )

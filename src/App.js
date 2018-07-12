@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import './hompage.css';
 import HomepageTopBar from './home';
+import StockOverall from './stockChartdata';
 
 class App extends Component {
   render() {
@@ -12,8 +13,7 @@ class App extends Component {
             <HomepageTopBar />
         </div>
           <div className="stockDetails">
-              <div className="stockChartColumn"></div>
-              <div className="stockChartData"></div>
+            <StockOverall profival={400} profilename="Harshil"/>
           </div>
       </div>
     );
