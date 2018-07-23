@@ -1,0 +1,36 @@
+div.cmn-style {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+div#cp-label {
+    font-size: 2rem;
+    margin-right: 20px;
+
+}
+
+.ac-value{
+    font-size: 2rem;
+    margin-right: 10px;
+    color: #4f95ff;
+}
+
+.ac-perventage-val{
+    font-size:1.5rem;
+}
+
+.roundbracket{
+    margin: 20px 0px;
+    display: inline-block;
+    font-size: 1.8rem;
+}
+
+div#icon-up-down {
+    padding-top: 0px;
+}
+.ac-perventage-val{
+    padding-top: 5px;
+    color: #5af527;
+    margin-right: 5px;
+}

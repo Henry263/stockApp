@@ -1,0 +1,20 @@
+
+body{
+    background-color: #04080ade;
+    color: #fff9f8;
+    font-family: Calibri;
+}
+
+.appLogo-holder{
+
+    width: 9%;
+    display: inline-block;
+    background-color: #05345030;
+}
+.stockAnalytics-holder{
+    width: 87.9%;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-right: 20px;
+}

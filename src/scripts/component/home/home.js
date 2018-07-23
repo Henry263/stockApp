@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
+import Navbar from '../navbar/navbar';
+import Cportfolio from '../currentportfolio/cp';
 
-class HomepageTopBar extends Component{
+class Homepage extends Component{
     render(){
         return(
             <div className="topbar">
                 <div className="appLogo-holder">
-                    Logo here
+                    <Navbar />
                 </div>
                 <div className="stockAnalytics-holder">
-                    Overall stck balance Data
+                    <Cportfolio />
                 </div>
             </div>
             )
     }
 }
 
-export default HomepageTopBar;
+export default Homepage;

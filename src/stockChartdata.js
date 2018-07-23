@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import apiObj from './utils/api'
 
 class StockOverall extends Component{
     // constructor is new to echmascript 6
@@ -30,10 +31,18 @@ class StockOverall extends Component{
                 <div>Profit val: {profival}</div>
                 <div>City : {city}</div>
                 <button onClick={this.custommethod.bind(this)}> show custom method </button>
+                <button onClick={this.componentWillMount.bind(this)}> Call Ajax  </button>
             </div>
         );
     }
 
+    componentWillMount(){
+        // We are going to make an ajax call.
+        apiObj.fetchStockData()
+            .then(function(response){
+                console.log(response);
+            })
+    }
     /**
      * props: passing data to the component
      * state: Track the state of the component. If state change then render that portion again.
@@ -57,7 +66,10 @@ class StockOverall extends Component{
             });
         }
 
-
+        apiObj.fetchStockData()
+            .then(function(response){
+                console.log(response);
+            })
     }
 }
 
