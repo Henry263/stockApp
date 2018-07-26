@@ -8,7 +8,7 @@ import Homepage from '../scripts/component/home/home';
 class App extends Component {
   render() {
     return (
-      <div className="sampleClass">
+      <div className="stockapp-root">
 
         <div className="hompageStyle">
             <Homepage />

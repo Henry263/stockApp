@@ -1,0 +1,23 @@
+.livemarketfeed-div{
+    display: block;
+    border: 2px solid;
+    border-radius: 3%;
+    margin-top: 20px;
+}
+.eachlivefeed-div {
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+a.eachlivefeed {
+    text-decoration: none;
+    color: #a9ffacf2;
+}
+
+a.eachlivefeed:focus {
+    color: #57a2fffc;
+}
+
+a.eachlivefeed:hover {
+    color: #57a2fffc;
+}

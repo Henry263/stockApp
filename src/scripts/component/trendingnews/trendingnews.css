@@ -1,0 +1,24 @@
+
+.trendingnews-div{
+    display: block;
+    border: 2px solid;
+    border-radius: 3%;
+    margin-top: 20px;
+}
+.eachnews-div {
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+a.eachNewsHeadline {
+    text-decoration: none;
+    color: #a9ffacf2;
+}
+
+a.eachNewsHeadline:focus {
+    color: #57a2fffc;
+}
+
+a.eachNewsHeadline:hover {
+    color: #57a2fffc;
+}
