@@ -1,0 +1,55 @@
+.inline_style{
+    display: inline-block;
+}
+
+.right-space{
+
+}
+
+.font-style{
+    font-size: 1.3rem;
+}
+
+._tg_symbol{
+    width:17%;
+    margin-right: 10px;
+}
+._tg_labels{
+    display: inline-block;
+    font-size: 1.3rem;
+}
+._tg_icon{
+    position: relative;
+    top: -4px;
+}
+._tg_percentchange{
+    width:40%;
+}
+._tg_price{
+    width: 25%;
+    padding-left: 45px;
+}
+._tg_hr_line{
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+}
+
+._tg_changeval {
+    padding-left: 5px;
+}
+
+._tg_heading {
+    text-align: center;
+    border: 2px solid white;
+    padding: 10px 0px;
+    font-size: 1.8rem;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    background-color: #05345030;
+    color: #7eff10;
+}
+
+._tg_details {
+    padding-left: 15px;
+    padding-right: 15px;
+}

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './cp.css';
-import * as FontAwesome from 'react-icons/lib/fa'
+import * as FontAwesome from 'react-icons/lib/fa';
 
 class Cportfolio extends Component{
     constructor(props){
@@ -24,7 +24,7 @@ class Cportfolio extends Component{
                 </div>
                 <div className="roundbracket">(</div>
                 <div id="ac-perventage-icon" className="cmn-style ac-perventage-icon">
-                    <div id="icon-up-down" style={{color: '#5af527'}}>
+                    <div id="icon-up-down" className="icon-up-down-cp" style={{color: '#5af527'}}>
                         <FontAwesome.FaCaretUp size={36} />
                     </div>
                 </div>

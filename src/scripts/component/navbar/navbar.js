@@ -25,6 +25,13 @@ class Navbar extends Component{
                     </div>
                     <div id="iconName">Watchlist</div>
                 </div>
+
+                <div className="watchlist-icon-div icon-div">
+                    <div id="icon-setting">
+                        <FontAwesome.FaNewspaperO size={46} />
+                    </div>
+                    <div id="iconName">News</div>
+                </div>
                 <div className="watchlist-icon-div icon-div">
                     <div id="icon-setting">
                         <FontAwesome.FaBank size={46} />

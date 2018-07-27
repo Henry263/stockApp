@@ -1,0 +1,62 @@
+
+.eachtickerblock{
+    display: inline-block;
+    width: 11vw;
+    height: 125px;
+    padding: 5px;
+    background-color: #05345030;
+    position: relative;
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(255, 255, 255, 0.5);
+    box-shadow: 4px 4px 4px 1px rgba(179, 179, 179, 0.5);
+    padding: 10px;
+    margin: 1%;
+}
+
+.ticker-container {
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.tickername{
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    text-align: -webkit-left;
+    padding-left: 10px;
+
+}
+.tickerprice{
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+.up-down-percent{
+    font-size: 1.4rem;
+    display: inline-block;
+}
+
+.up-color{
+    color: #7eff10;
+}
+.down-color{
+    color: #ff5d28;
+}
+
+.bracket-open, .bracket-close
+{
+    font-size: 1.4rem;
+    display: inline-block;
+
+}
+div.up-down-icon-each {
+    display: inline-block;
+}
+
+.bracket-close
+{
+    margin-left: 5px;
+}
+
+.bracket-open
+{
+    margin-right: 5px;
+}

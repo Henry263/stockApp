@@ -12,14 +12,14 @@ class Livemarketfeed extends Component{
                     </div>
                 );
             });
-
+            //console.log("after loop livefeed:",livefeeds);
             return(
                 <div>
                     <div className="livemarketfeed-div">
-                        <div className="headline-header">
+                        <div className="headline-header feedheading-position">
                             Live Feeds
                         </div>
-                        <div> {livefeeds} </div>
+                        <div className="feedcontainer"> {livefeeds} </div>
                     </div>
                 </div>
             );
