@@ -4,7 +4,7 @@ import Livemarketfeed from '../livemarketfeed/livemarketfeed';
 import apiobj from '../../../utils/api';
 
 
-class Toploosers extends Component{
+class Newscontainer extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -55,4 +55,4 @@ class Toploosers extends Component{
     }
 }
 
-export default Toploosers;
+export default Newscontainer;

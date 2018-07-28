@@ -13,7 +13,7 @@ class Topgainsers extends Component{
     };
 
     fetchgainsersData(){
-        
+
         apiobj.topgainers()
             .then(function (response){
                 console.log("from top gainsers: ",response);
