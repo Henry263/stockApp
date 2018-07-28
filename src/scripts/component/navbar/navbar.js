@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import './navbar.css';
 import avtar from '../../../graphics/img_avatar.png';
 import * as FontAwesome from 'react-icons/lib/fa'
 
 
 class Navbar extends Component{
+
+    setRedirect = () => {
+        this.props.history.push("/news")
+    };
+    setRedirectHome = () => {
+        this.props.history.push("/")
+    };
     render(){
         console.log(FontAwesome);
         return(
@@ -13,7 +21,7 @@ class Navbar extends Component{
                     <img className="avtarStyle" src={avtar} alt="avtar name"/>
                 </div>
                 <div className="portfolio-icon-div icon-div">
-                    <div id="icon-setting">
+                    <div id="icon-setting" onClick={this.setRedirectHome}>
                         <FontAwesome.FaLineChart size={46} />
                     </div>
                     <div id="iconName">Portfolio</div>
@@ -26,8 +34,8 @@ class Navbar extends Component{
                     <div id="iconName">Watchlist</div>
                 </div>
 
-                <div className="watchlist-icon-div icon-div">
-                    <div id="icon-setting">
+                <div className="watchlist-icon-div icon-div" >
+                    <div id="icon-setting" onClick={this.setRedirect}>
                         <FontAwesome.FaNewspaperO size={46} />
                     </div>
                     <div id="iconName">News</div>
@@ -56,4 +64,4 @@ class Navbar extends Component{
 }
 
 
-export default Navbar;
+export default withRouter(Navbar);
