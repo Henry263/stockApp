@@ -10,9 +10,9 @@
     -webkit-box-shadow: 1px 2px 4px rgba(255, 255, 255, 0.5);
     box-shadow: 4px 4px 4px 1px rgba(179, 179, 179, 0.5);
     padding: 10px;
-    margin: 1%;
+    margin: 1%;,
+    cursor: pointer;
 }
-
 .ticker-container {
     text-align: center;
     text-align: -webkit-center;
@@ -59,4 +59,24 @@ div.up-down-icon-each {
 .bracket-open
 {
     margin-right: 5px;
+}
+.anatomy-boundry {
+    border: 2px solid;
+    border-radius: 10px;
+}
+.close-btn {
+    text-align: -webkit-right;
+    text-align: right;
+    display: inline-block;
+    /* margin-bottom: 10px; */
+    position: relative;
+    top: -17px;
+    background-color: #ff7835;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+.left-anatomy-div {
+    display: inline-block;
+    width: 93%;
 }

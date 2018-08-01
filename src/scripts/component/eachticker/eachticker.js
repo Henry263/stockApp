@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Tickeranatomy from '../tickeranatomy/tickeranatomy';
 import './eachticker.css';
 import * as FontAwesome from 'react-icons/lib/fa';
 import apiobj from '../../../utils/api';
@@ -12,9 +13,24 @@ class Eachticker extends Component{
             quoteFromuser:"AAPL,FB,GBT,AMZN,VTVT,EBIO,TSLA",
             isquoteloaded: false,
             responsequote: "",
-            quoteArray: []
+            quoteArray: [],
+            shown: true,
         };
     }
+
+    toggle() {
+        this.setState({
+            shown: !this.state.shown
+        });
+
+        console.log("State after function call: ",this.state.shown);
+    }
+    toggleclose(){
+        this.setState({
+            shown: !this.state.shown
+        });
+    }
+
     fetchquote(){
 
         apiobj.stockquote(this.state.quoteFromuser)
@@ -76,8 +92,22 @@ class Eachticker extends Component{
         return (parseInt(figure*d)/d).toFixed(decimals);
     };
 
+    handleOnTickerClick(param){
+        //const nextValue = e.target.value;
+        console.log("State before function call: ",this.state.shown);
+        this.toggle();
+        console.log("From function: ", param);
+    };
+
 
     render(){
+        var shown = {
+            display: this.state.shown ? "block" : "none"
+        };
+
+        var hidden = {
+            display: this.state.shown ? "none" : "block"
+        }
         var counter = 0;
         if(this.state.isquoteloaded)
         {
@@ -108,7 +138,7 @@ class Eachticker extends Component{
                 var num = 1;
                 console.log("Gettling latest values: ",key.quote.latestPrice);
                 return(
-                    <div className="eachtickerblock">
+                    <div className="eachtickerblock" value={key.quote.symbol} onClick={()=>this.handleOnTickerClick(key.quote.symbol)}>
                         {symbolElem}
                         <div className="tickerprice"><span className="dsign">$</span><span>{key.quote.latestPrice}</span></div>
                         <div className="bracket-open">
@@ -124,8 +154,24 @@ class Eachticker extends Component{
             });
             return(
 
-                <div className="ticker-container">
-                    {eachtickerDiv}
+                <div >
+                    <div style={ shown } className="ticker-container">
+                        {eachtickerDiv}
+                    </div>
+
+                    <div style={ hidden } className="ticker-anatomy">
+                        <div className="anatomy-boundry">
+                            <div className="left-anatomy-div"></div>
+                            <div className="close-btn" onClick={()=> this.toggle()}>
+                                <FontAwesome.FaClose size={40} />
+                            </div>
+                            <div className="anatomy-data">
+                                <Tickeranatomy/>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             )
         }
@@ -141,3 +187,8 @@ class Eachticker extends Component{
 }
 
 export default Eachticker;
+
+/*
+* <h2>this.state.shown = true</h2>
+                        <h2>this.state.shown = false</h2>
+* */

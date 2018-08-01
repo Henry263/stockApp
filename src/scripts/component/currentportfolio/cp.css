@@ -33,3 +33,13 @@ div.icon-up-down-cp {
     color: #5af527;
     margin-right: 5px;
 }
+.container-plus-icon {
+    margin: 10px;
+    display: inline-block;
+    border: 1px solid white;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}

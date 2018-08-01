@@ -32,6 +32,12 @@ class Cportfolio extends Component{
                     20%
                 </div>
                 <div className="roundbracket">)</div>
+                <div className="container-plus-icon">
+                    <div id="icon-add" className="icon-add-cp" style={{color: '#5af527'}}>
+                        <FontAwesome.FaPlusCircle size={46} />
+                    </div>
+                    <div>Add Stock</div>
+                </div>
             </div>
         )
     }

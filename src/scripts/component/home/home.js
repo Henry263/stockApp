@@ -12,7 +12,6 @@ import Newscontainer from '../newssection/newscontainer';
 class Homepage extends Component{
 
     render(){
-
             return(
                 <Router>
                     <div className="topbar">

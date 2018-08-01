@@ -58,3 +58,7 @@
   margin: 0 auto;
   background-color: #04080ade;
 }
+
+.eachtickerblock{
+  cursor: pointer;
+}

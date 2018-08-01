@@ -58,7 +58,7 @@ class Toploosers extends Component{
                             <div className="_tg_symbol _tg_labels">{key.symbol}</div>
                             <div className="_tg_percentchange _tg_labels right-space">
                                 <div className="_tg_icon inline_style" style={{color: '#ff5d28'}}>
-                                    <FontAwesome.FaCaretUp size={40} />
+                                    <FontAwesome.FaCaretDown size={40} />
                                 </div>
                                 <div className="_tg_changeval inline_style" style={{color: '#ff5d28'}}>{percentVal}%</div>
                             </div>
