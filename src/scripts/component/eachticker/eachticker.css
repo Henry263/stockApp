@@ -73,10 +73,12 @@ div.up-down-icon-each {
     top: -17px;
     background-color: #ff7835;
     border-radius: 10px;
-    padding: 5px;
+    padding: 0px;
     cursor: pointer;
+    right: -20px;
 }
 .left-anatomy-div {
     display: inline-block;
     width: 93%;
+    vertical-align: top;
 }

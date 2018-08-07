@@ -15,20 +15,18 @@ class Eachticker extends Component{
             responsequote: "",
             quoteArray: [],
             shown: true,
+            tickerclicksymbol:"",
+            initialAnatomyComp: true
         };
     }
 
     toggle() {
         this.setState({
-            shown: !this.state.shown
+            shown: !this.state.shown,
+            initialAnatomyComp: !this.state.initialAnatomyComp
         });
 
-        console.log("State after function call: ",this.state.shown);
-    }
-    toggleclose(){
-        this.setState({
-            shown: !this.state.shown
-        });
+        //console.log("State initialAnatomyComp after function call: ",this.state.initialAnatomyComp);
     }
 
     fetchquote(){
@@ -36,20 +34,21 @@ class Eachticker extends Component{
         apiobj.stockquote(this.state.quoteFromuser)
             .then(function (response) {
                 var arry = this.state.quoteFromuser.split(",");
-                console.log("promise quote Data: ", arry);
+                //console.log("promise quote Data: ", arry);
                 this.setState({responsequote : response, isquoteloaded: true, quoteArray: arry});
+                console.log("after api call  will mount method", this.state.isquoteloaded);
             }.bind(this));
     }
     loppForquote(){
         var count = 0;
         this.interval = setInterval(() => {
-            console.log("Number for loop from quote ticker:",count++);
+            //console.log("Number for loop from quote ticker:",count++);
             this.fetchquote();
-        }, 10000);
+        }, 100000);
     }
 
     componentWillMount() {
-        console.log("component will mount method");
+        //console.log("component will mount method on parent", this.state.isquoteloaded);
         this.setState({isquoteloaded:false});
         this.loppForquote();
         this.fetchquote();
@@ -92,14 +91,43 @@ class Eachticker extends Component{
         return (parseInt(figure*d)/d).toFixed(decimals);
     };
 
-    handleOnTickerClick(param){
-        //const nextValue = e.target.value;
-        console.log("State before function call: ",this.state.shown);
+
+    handleOnTickerClick = param => {
+        this.setState({tickerclicksymbol: param, initialAnatomyComp:false});
+        this.getnewtickerdata();
         this.toggle();
-        console.log("From function: ", param);
-    };
+    }
+
+    getnewtickerdata = () => {
+        this.setState({getnewtickerdata: this.state.tickerclicksymbol});
+    }
+
+    gettickeranatomydiv = () => {
+        const isInitialanatomyload = this.state.initialAnatomyComp;
+
+        if(!isInitialanatomyload)
+        {
+            return(
+
+                <div className="anatomy-boundry">
+                        <div className="left-anatomy-div">
+                            <Tickeranatomy tickervalue={this.state.tickerclicksymbol} />
+                        </div>
+
+                    <div className="close-btn" onClick={()=> this.toggle()}>
+                        <FontAwesome.FaClose size={40} />
+                    </div>
 
 
+                </div>
+            );
+            //console.log("Inside isInitialanatomyload condition True");
+        }
+        else{
+            //console.log("Inside isInitialanatomyload condition False");
+        }
+
+    }
     render(){
         var shown = {
             display: this.state.shown ? "block" : "none"
@@ -109,10 +137,11 @@ class Eachticker extends Component{
             display: this.state.shown ? "none" : "block"
         }
         var counter = 0;
+        console.log("Font awasome icons:", FontAwesome);
         if(this.state.isquoteloaded)
         {
             //console.log("Data loaded: ", this.state.responsequote);
-            console.log("Data loaded: ", counter++);
+            //console.log("Data loaded: ", counter++);
             var tickerObj = this.state.responsequote;
             var tickerArray = [];
             Object.keys(tickerObj).forEach(function(key) {
@@ -136,7 +165,7 @@ class Eachticker extends Component{
                     symbolElem = this.negativeTicker(key.quote.symbol);
                 }
                 var num = 1;
-                console.log("Gettling latest values: ",key.quote.latestPrice);
+                //console.log("Gettling latest values: ",key.quote.latestPrice);
                 return(
                     <div className="eachtickerblock" value={key.quote.symbol} onClick={()=>this.handleOnTickerClick(key.quote.symbol)}>
                         {symbolElem}
@@ -154,22 +183,13 @@ class Eachticker extends Component{
             });
             return(
 
-                <div >
+                <div>
                     <div style={ shown } className="ticker-container">
                         {eachtickerDiv}
                     </div>
 
                     <div style={ hidden } className="ticker-anatomy">
-                        <div className="anatomy-boundry">
-                            <div className="left-anatomy-div"></div>
-                            <div className="close-btn" onClick={()=> this.toggle()}>
-                                <FontAwesome.FaClose size={40} />
-                            </div>
-                            <div className="anatomy-data">
-                                <Tickeranatomy/>
-                            </div>
-
-                        </div>
+                        <div>{this.gettickeranatomydiv()}</div>
 
                     </div>
                 </div>
@@ -191,4 +211,18 @@ export default Eachticker;
 /*
 * <h2>this.state.shown = true</h2>
                         <h2>this.state.shown = false</h2>
+
+                                <Tickeranatomy tickervalue={this.state.tickerclicksymbol}/>
+
+                                <div className="anatomy-boundry">
+                            <div className="left-anatomy-div"></div>
+                            <div className="close-btn" onClick={()=> this.toggle()}>
+                                <FontAwesome.FaClose size={40} />
+                            </div>
+                            <div className="anatomy-data">
+                                <Tickeranatomy tickervalue={this.state.tickerclicksymbol} />
+                            </div>
+
+                        </div>
+
 * */

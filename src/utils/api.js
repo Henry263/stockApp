@@ -92,7 +92,25 @@ module.exports = {
                 return response.data;
             }
         )
-    }
+    },
+    tickeranatomy: function(tickerVAl){
+        var _toploosersurl = "https://cors-anywhere.herokuapp.com/https://api.iextrading.com/1.0/stock/"+tickerVAl+"/batch?types=quote,news,chart,stats&range=1m&last=15";
+        return axios.get(_toploosersurl,
+            {
+                headers: ""
+            },
+            { mode: 'no-cors' },
+            {
+                xhrFields: {
+                    withCredentials: true
+                }
+            })
+            .then(function(response){
+                    return response.data;
+                }
+            )
+    },
+
 }
 
 

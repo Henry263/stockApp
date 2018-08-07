@@ -1,0 +1,61 @@
+
+.inline-style{
+    display: inline-block;
+}
+.keystats{
+    padding: 10px;
+}
+.tickerheader{
+    font-size: 1.5rem;
+}
+.ticker-symbol {
+    margin-left: 10px;
+}
+
+.movingavg-div, .stats-div-width{
+    width: 47.5%;
+    vertical-align: top;
+}
+.movingavg-div{
+    margin-left: 15px;
+}
+
+.stats-div-width{
+    margin-right: 15px;
+}
+
+.st-left-val{
+    display: inline-block;
+    text-align: left;
+    width: 70%;
+}
+
+.st-right-val{
+    display: inline-block;
+    text-align: right;
+    width: 28%;
+}
+
+.tickerName-div {
+    margin-bottom: 25px;
+}
+.stats-div {
+    /* width: 100%; */
+    text-align: -webkit-center;
+    position: relative;
+    left: 25px;
+}
+.custom-hrline {
+    height: 3px;
+    background-color: white;
+    margin-bottom: 1px;
+}
+.margin-hrline{
+    margin: 1px 0;
+}
+.ticker-news-div {
+    padding: 10px 15px;
+}
+.anatomy-news-header {
+    font-size: 1.24rem;
+}

@@ -16,7 +16,7 @@ class Topgainsers extends Component{
 
         apiobj.topgainers()
             .then(function (response){
-                console.log("from top gainsers: ",response);
+                //console.log("from top gainsers: ",response);
                 this.setState({gainersData: response, isloadingTopgaiers:true});
             }.bind(this));
     }
@@ -48,14 +48,14 @@ class Topgainsers extends Component{
 
                if(i<5)
                {
+                   /*
                    console.log("each gainsers data symbol:", key.symbol);
                    console.log("each gainsers data latest ptice:", key.latestPrice);
-
-
+                    */
                    var recalculatePercent = key.changePercent*100;
                    //console.log("From render function: ", key.quote.latestPrice);
                    var percentVal = this.floorFigure(recalculatePercent, 2);
-                   console.log("each gainsers data change in percent:", percentVal);
+                   //console.log("each gainsers data change in percent:", percentVal);
                    return(
                        <div className="_tg_details">
                            <div className="_tg_symbol _tg_labels">{key.symbol}</div>

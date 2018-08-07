@@ -15,7 +15,7 @@ class Toploosers extends Component{
     fetchloosersData(){
         apiobj.toploosers()
             .then(function (response){
-                console.log("from top Loosers: ",response);
+                //console.log("from top Loosers: ",response);
                 this.setState({loosersData: response, isloadingToploosers:true});
             }.bind(this));
     }
@@ -45,14 +45,15 @@ class Toploosers extends Component{
 
                 if(i<5)
                 {
+                    /*
                     console.log("each gainsers data symbol:", key.symbol);
                     console.log("each gainsers data latest ptice:", key.latestPrice);
-
+                    */
 
                     var recalculatePercent = key.changePercent*100;
                     //console.log("From render function: ", key.quote.latestPrice);
                     var percentVal = this.floorFigure(recalculatePercent, 2);
-                    console.log("each gainsers data change in percent:", percentVal);
+                    //console.log("each gainsers data change in percent:", percentVal);
                     return(
                         <div className="_tg_details">
                             <div className="_tg_symbol _tg_labels">{key.symbol}</div>
