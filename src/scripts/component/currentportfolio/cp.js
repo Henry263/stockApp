@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+
 import './cp.css';
 import * as FontAwesome from 'react-icons/lib/fa';
+import Modalcomp from '../modalcomponent/modalcomponent';
+
 
 class Cportfolio extends Component{
     constructor(props){
@@ -16,6 +19,7 @@ class Cportfolio extends Component{
 
         return(
             <div className="cp-div">
+                <Modalcomp/>
                 <div id="cp-label" className="cmn-style">
                     Current Portfolio status
                 </div>

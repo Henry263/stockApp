@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 
+import './modalcmoponent.css';
+
 class Modalcomp extends Component{
     constructor(){
       super();

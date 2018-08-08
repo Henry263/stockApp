@@ -5,6 +5,7 @@ import avtar from '../../../graphics/img_avatar.png';
 import * as FontAwesome from 'react-icons/lib/fa'
 
 
+
 class Navbar extends Component{
 
     setRedirect = () => {
