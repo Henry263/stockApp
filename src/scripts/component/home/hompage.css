@@ -42,4 +42,9 @@ body{
     margin: 5px;
     border-radius: 5px;
 }
-
+.modal-div {
+    display: inline-block;
+}
+._cp_container {
+    display: inline-block;
+}

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import './cp.css';
 import * as FontAwesome from 'react-icons/lib/fa';
-import Modalcomp from '../modalcomponent/modalcomponent';
+
 
 
 class Cportfolio extends Component{
@@ -19,7 +19,7 @@ class Cportfolio extends Component{
 
         return(
             <div className="cp-div">
-                <Modalcomp/>
+
                 <div id="cp-label" className="cmn-style">
                     Current Portfolio status
                 </div>
@@ -36,12 +36,7 @@ class Cportfolio extends Component{
                     20%
                 </div>
                 <div className="roundbracket">)</div>
-                <div className="container-plus-icon">
-                    <div id="icon-add" className="icon-add-cp" style={{color: '#5af527'}}>
-                        <FontAwesome.FaPlusCircle size={46} />
-                    </div>
-                    <div>Add Stock</div>
-                </div>
+
             </div>
         )
     }
@@ -49,3 +44,12 @@ class Cportfolio extends Component{
 
 //FaCaretUp, FaCaretDown
 export default Cportfolio;
+
+/*
+<div className="container-plus-icon">
+                    <div id="icon-add" className="icon-add-cp" style={{color: '#5af527'}}>
+                        <FontAwesome.FaPlusCircle size={46} />
+                    </div>
+                    <div>Add Stock</div>
+                </div>
+ */

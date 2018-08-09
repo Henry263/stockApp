@@ -16,11 +16,14 @@ class Eachticker extends Component{
             quoteArray: [],
             shown: true,
             tickerclicksymbol:"",
-            initialAnatomyComp: true
+            initialAnatomyComp: true,
+            defaulttickerfrommodal: "",
+            tickerfrommodalflag: true
         };
     }
 
     toggle() {
+
         this.setState({
             shown: !this.state.shown,
             initialAnatomyComp: !this.state.initialAnatomyComp
@@ -29,29 +32,34 @@ class Eachticker extends Component{
         //console.log("State initialAnatomyComp after function call: ",this.state.initialAnatomyComp);
     }
 
-    fetchquote(){
+    fetchquote(tickersString){
 
-        apiobj.stockquote(this.state.quoteFromuser)
+        apiobj.stockquote(tickersString)
             .then(function (response) {
-                var arry = this.state.quoteFromuser.split(",");
+                var arry = tickersString.split(",");
                 //console.log("promise quote Data: ", arry);
-                this.setState({responsequote : response, isquoteloaded: true, quoteArray: arry});
-                console.log("after api call  will mount method", this.state.isquoteloaded);
+                this.setState({responsequote : response, isquoteloaded: true, quoteArray: arry, tickerfrommodalflag:true});
+                //console.log("after api call  will mount method", this.state.isquoteloaded);
+                console.log("fetchquote: 7");
             }.bind(this));
     }
     loppForquote(){
-        var count = 0;
+
+        var estTime = new Date(); // get local time to be calculated into EST
+        estTime.setHours(estTime.getHours() + estTime.getTimezoneOffset()/60 - 4);
+        console.log("EST time: ",estTime.getHours());
+
         this.interval = setInterval(() => {
             //console.log("Number for loop from quote ticker:",count++);
-            this.fetchquote();
+            this.fetchquote(this.state.quoteFromuser);
         }, 100000);
     }
 
     componentWillMount() {
-        //console.log("component will mount method on parent", this.state.isquoteloaded);
+
         this.setState({isquoteloaded:false});
         this.loppForquote();
-        this.fetchquote();
+        this.fetchquote(this.state.quoteFromuser);
     }
     positiveTicker(symbolStyle){
         return(
@@ -93,6 +101,7 @@ class Eachticker extends Component{
 
 
     handleOnTickerClick = param => {
+
         this.setState({tickerclicksymbol: param, initialAnatomyComp:false});
         this.getnewtickerdata();
         this.toggle();
@@ -100,6 +109,20 @@ class Eachticker extends Component{
 
     getnewtickerdata = () => {
         this.setState({getnewtickerdata: this.state.tickerclicksymbol});
+    }
+    checknewtickervalue = (propsVAl) => {
+
+        if(propsVAl.newtickervalforportfolio.newtickerportfolio !== this.state.defaulttickerfrommodal){
+
+            const existingTickersString = this.state.quoteFromuser+","+propsVAl.newtickervalforportfolio.newtickerportfolio;
+
+            this.setState(
+                {
+                    quoteFromuser: existingTickersString,
+                    defaulttickerfrommodal:propsVAl.newtickervalforportfolio.newtickerportfolio
+                });
+            this.fetchquote(existingTickersString);
+        }
     }
 
     gettickeranatomydiv = () => {
@@ -123,12 +146,12 @@ class Eachticker extends Component{
             );
             //console.log("Inside isInitialanatomyload condition True");
         }
-        else{
-            //console.log("Inside isInitialanatomyload condition False");
-        }
 
     }
     render(){
+
+        this.checknewtickervalue(this.props);
+
         var shown = {
             display: this.state.shown ? "block" : "none"
         };
@@ -137,7 +160,7 @@ class Eachticker extends Component{
             display: this.state.shown ? "none" : "block"
         }
         var counter = 0;
-        console.log("Font awasome icons:", FontAwesome);
+
         if(this.state.isquoteloaded)
         {
             //console.log("Data loaded: ", this.state.responsequote);
@@ -209,20 +232,12 @@ class Eachticker extends Component{
 export default Eachticker;
 
 /*
-* <h2>this.state.shown = true</h2>
-                        <h2>this.state.shown = false</h2>
-
-                                <Tickeranatomy tickervalue={this.state.tickerclicksymbol}/>
-
-                                <div className="anatomy-boundry">
-                            <div className="left-anatomy-div"></div>
-                            <div className="close-btn" onClick={()=> this.toggle()}>
-                                <FontAwesome.FaClose size={40} />
-                            </div>
-                            <div className="anatomy-data">
-                                <Tickeranatomy tickervalue={this.state.tickerclicksymbol} />
-                            </div>
-
-                        </div>
-
-* */
+const isrerenderRequired = this.samplefunction(this.props);
+        if(isrerenderRequired && this.state.isquoteloaded)
+        {
+            console.log("yes rerender required");
+        }
+        else {
+            console.log("No rerender NOT required");
+        }
+ */

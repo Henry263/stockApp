@@ -8,8 +8,19 @@ import Eachticker from '../eachticker/eachticker';
 import Topgainsers from '../topgainers/topgainers';
 import Toploosers from '../toploosers/toploosers';
 import Newscontainer from '../newssection/newscontainer';
+import Modalcomp from '../modalcomponent/modalcomponent';
 
 class Homepage extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            newtickerportfolio: ""
+        }
+    }
+    handlechildtickerval = (newVal) => {
+        this.setState({newtickerportfolio: newVal});
+    }
 
     render(){
             return(
@@ -19,12 +30,18 @@ class Homepage extends Component{
                             <Navbar />
                         </div>
                         <div className="stockAnalytics-holder">
-                            <Cportfolio />
+                            <div className="_cp_container">
+                                <Cportfolio />
+                            </div>
+                            <div className="modal-div">
+                                <Modalcomp handlerFrommodaltohome={this.handlechildtickerval}/>
+                            </div>
+
                             <div className="mainBody">
                                 <div className="mainBodyleft">
                                     <div className="eachTicker-container">
                                         <Switch>
-                                            <Route path="/" component={Eachticker} exact/>
+                                            <Route path="/" exact render={props => <Eachticker newtickervalforportfolio={this.state}  />}/>
                                             <Route path="/news" component={Newscontainer}/>
                                         </Switch>
                                     </div>
