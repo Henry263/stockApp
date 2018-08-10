@@ -10,7 +10,7 @@ class Eachticker extends Component{
     constructor(props){
         super(props);
         this.state = {
-            quoteFromuser:"AAPL,FB,GBT,AMZN,VTVT,EBIO,TSLA",
+            quoteFromuser:"",
             isquoteloaded: false,
             responsequote: "",
             quoteArray: [],
@@ -48,18 +48,35 @@ class Eachticker extends Component{
         var estTime = new Date(); // get local time to be calculated into EST
         estTime.setHours(estTime.getHours() + estTime.getTimezoneOffset()/60 - 4);
         console.log("EST time: ",estTime.getHours());
+        var estHours = estTime.getHours();
+        var timeInterval;
+        if(estHours >6 && estHours < 16)
+            timeInterval = 100000;
+        else
+            timeInterval = 1500000;
+
+        console.log("What will be time interval:",timeInterval);
 
         this.interval = setInterval(() => {
             //console.log("Number for loop from quote ticker:",count++);
             this.fetchquote(this.state.quoteFromuser);
-        }, 100000);
+        }, timeInterval);
     }
 
     componentWillMount() {
+        const tickerStringFromCache= localStorage.getItem('initialTickerString');
+        console.log("ticker string from cache: ",tickerStringFromCache);
+        if(tickerStringFromCache)
+        {
+            this.setState({isquoteloaded:false});
+            this.loppForquote();
+            this.setState(
+                {
+                    quoteFromuser: tickerStringFromCache,
+                });
+            this.fetchquote(tickerStringFromCache);
+        }
 
-        this.setState({isquoteloaded:false});
-        this.loppForquote();
-        this.fetchquote(this.state.quoteFromuser);
     }
     positiveTicker(symbolStyle){
         return(
@@ -76,7 +93,7 @@ class Eachticker extends Component{
         return(
             <div className="up-down-icon-each">
                 <div id="icon-up-down" className="up-down-icon-each" style={{color: '#7eff10'}}>
-                    <FontAwesome.FaCaretUp size={40} />
+                    <FontAwesome.FaArrowUp size={12} />
                 </div>
                 <div className="up-down-percent up-color">{valueinpercentage}%</div>
             </div>
@@ -87,7 +104,7 @@ class Eachticker extends Component{
         return(
             <div className="up-down-icon-each">
                 <div id="icon-up-down" className="up-down-icon-each" style={{color: '#ff5d28'}}>
-                    <FontAwesome.FaCaretDown size={40} />
+                    <FontAwesome.FaArrowDown size={12} />
                 </div>
                 <div className="up-down-percent down-color">{minusvalueinpercentage}%</div>
             </div>
@@ -115,7 +132,7 @@ class Eachticker extends Component{
         if(propsVAl.newtickervalforportfolio.newtickerportfolio !== this.state.defaulttickerfrommodal){
 
             const existingTickersString = this.state.quoteFromuser+","+propsVAl.newtickervalforportfolio.newtickerportfolio;
-
+            localStorage.setItem('initialTickerString', existingTickersString);
             this.setState(
                 {
                     quoteFromuser: existingTickersString,
@@ -192,13 +209,21 @@ class Eachticker extends Component{
                 return(
                     <div className="eachtickerblock" value={key.quote.symbol} onClick={()=>this.handleOnTickerClick(key.quote.symbol)}>
                         {symbolElem}
-                        <div className="tickerprice"><span className="dsign">$</span><span>{key.quote.latestPrice}</span></div>
-                        <div className="bracket-open">
-                            (
+                        <div className="change-container-div">
+                            <div className="bracket-open">
+                                (
+                            </div>
+                            {percentageComponent}
+                            <div className="bracket-close">
+                                )
+                            </div>
                         </div>
-                        {percentageComponent}
-                        <div className="bracket-close">
-                            )
+
+                        <div className="tickerprice"><span className="dsign">$</span><span>{key.quote.latestPrice}</span></div>
+                        <div className="totalVal-div">
+                            <span className="span-lbl-gain">Gain: </span>
+                            <span className="totalValpercent">234% , </span>
+                            <span className="totalVal">$5000000</span>
                         </div>
                     </div>
                 );

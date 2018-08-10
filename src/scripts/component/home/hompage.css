@@ -21,13 +21,13 @@ body{
 }
 .mainBodyright {
     display: inline-block;
-    width: 30%;
-
+    width: 25%;
+    font-size: 1rem;
     vertical-align: top;
 }
 .mainBodyleft {
     display: inline-block;
-    width: 66%;
+    width: 70%;
     vertical-align: top;
     margin: 10px 20px;
 }

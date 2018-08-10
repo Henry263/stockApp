@@ -21,7 +21,15 @@ class Homepage extends Component{
     handlechildtickerval = (newVal) => {
         this.setState({newtickerportfolio: newVal});
     }
+    componentWillMount(){
+        const tickerStringFromCache= localStorage.getItem('initialTickerString');
+        console.log("ticker string from Home component: ",tickerStringFromCache);
+        if(!tickerStringFromCache)
+        {
+            localStorage.setItem('initialTickerString', "AAPL,FB,GBT,AMZN,VTVT,EBIO,TSLA");
+        }
 
+    }
     render(){
             return(
                 <Router>

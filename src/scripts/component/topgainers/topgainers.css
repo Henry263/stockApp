@@ -7,7 +7,7 @@
 }
 
 .font-style{
-    font-size: 1.3rem;
+
 }
 
 ._tg_symbol{
@@ -16,7 +16,7 @@
 }
 ._tg_labels{
     display: inline-block;
-    font-size: 1.3rem;
+
 }
 ._tg_icon{
     position: relative;
@@ -27,7 +27,7 @@
 }
 ._tg_price{
     width: 25%;
-    padding-left: 45px;
+    padding-left: 30px;
 }
 ._tg_hr_line{
     margin-top: 0.1rem;
@@ -42,7 +42,7 @@
     text-align: center;
     border: 2px solid white;
     padding: 10px 0px;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     border-radius: 10px;
     margin-bottom: 6px;
     background-color: #05345030;
