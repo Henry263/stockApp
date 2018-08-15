@@ -1,55 +1,27 @@
 import React, {Component} from 'react';
+import './newscontainer.css';
 import Trendingnews from '../trendingnews/trendingnews';
 import Livemarketfeed from '../livemarketfeed/livemarketfeed';
-import apiobj from '../../../utils/api';
 
 
+// fortune 500
 class Newscontainer extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            isloadingHeadlines: false,
-            isloadinglivefeed: false,
-            newsdata:"",
-            newsArray: {},
-            newsheadlines: {}
-        }
-    };
 
-    fetchNews_FeedData(){
-        apiobj.fetchStockData()
-            .then(function (response) {
-                //console.log("promise news Data: ", response);
-                this.setState({newsdata : response[0]["title"], isloadingHeadlines: true, newsArray: response});
-
-                apiobj.fetchlivefeedData()
-                    .then(function (response) {
-                        //console.log("promise feed Data: ", response.updates);
-                        this.setState({livefeed : response.updates, isloadinglivefeed: true, livefeedArray: response.updates});
-                    }.bind(this));
-
-            }.bind(this));
-    }
-
-    loppForapi(){
-        var count = 0;
-        this.interval = setInterval(() => {
-            this.fetchNews_FeedData();
-
-        }, 50000);
-    }
-
-    componentWillMount(){
-        this.loppForapi();
-        this.setState({isloadingHeadlines:false, isloadinglivefeed:false});
-        this.fetchNews_FeedData();
-
-    }
     render(){
         return(
             <div className="newcontainer-style">
-                <Trendingnews trendingnews={this.state}/>
-                <Livemarketfeed livefeedNews={this.state}/>
+                <div className="news-category-div">
+                    <div className="trendingNews-div inline-display-news">Trending News</div>
+                    <div className="cnbc-news-div inline-display-news">CNBC</div>
+                    <div className="bloomberg-news-div inline-display-news">Bloomberg</div>
+                    <div className="wallstreet-news-div inline-display-news">Wall Street</div>
+                    <div className="ft-news-div inline-display-news">Financial Times</div>
+                    <div className="techCrunch-news-div inline-display-news">TechCrunch</div>
+                    <div className="fortune-news-div inline-display-news">Fortune 500</div>
+                    <div className="economist-news-div inline-display-news">The Economist</div>
+                </div>
+                <Livemarketfeed/>
+                <Trendingnews/>
             </div>
         )
     }

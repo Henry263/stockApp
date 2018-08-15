@@ -2,7 +2,7 @@ var axios = require('axios');
 //import axios from 'axios';
 
 module.exports = {
-    fetchStockData: function(){
+    fetchStockNewsData: function(){
         //var apiUrl = "https://api.iextrading.com/1.0/stock/amzn/quote";
         var marketHeadlinesAPI = "https://cors-anywhere.herokuapp.com/https://seekingalpha.com/news/trending_news";
         return axios.get(marketHeadlinesAPI,

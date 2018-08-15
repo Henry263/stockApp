@@ -22,7 +22,13 @@ class Modalcomp extends Component{
     };
     clsoemodalnpasstickerval = () => {
         console.log("printing state values: ",this.state.newtickerVal+", "+this.state.tickerQty, +", "+this.state.tickertotal);
-        this.props.handlerFrommodaltohome(this.state.newtickerVal);
+        const tickerObj = {};
+        tickerObj["Ticker"] = this.state.newtickerVal;
+        tickerObj["Qty"] = this.state.tickerQty;
+        tickerObj["Purchasedat"] = this.state.tickerprice;
+        this.props.handlerFrommodaltohome(this.state.newtickerVal, tickerObj);
+
+
         this.setState({showmodal: false, newtickerVal:"", tickerQty:"", tickerprice:""});
     };
     changenewtickerval = (e) => {
@@ -37,7 +43,36 @@ class Modalcomp extends Component{
     changenewtickertotal = (e) => {
         this.setState({tickertotal: e.target.value});
     };
+    validationForm = (tickerName, tickerQty, tickerPrice) => {
+        /*
+        console.log("Ticker Name: ", tickerName);
+        console.log("Ticker Quantity: ", tickerQty);
+        console.log("Ticker price: ", tickerPrice);
+        */
+        var checkdecimal = /^\d*$/;
+        var checkPrice = /^\d*\.\d*/;
+        var checkTickerName = /^[a-zA-Z]+$/;
+
+        if (checkPrice.test(tickerPrice) && tickerPrice) {
+            console.log("Correct qty: ",tickerPrice);
+        }
+        if (checkdecimal.test(tickerQty) && tickerQty) {
+            console.log("Correct qty: ",tickerQty);
+        }
+        if (checkTickerName.test(tickerName) && tickerName) {
+            console.log("Correct qty: ",tickerName);
+        }
+        return{
+            tickerName: true,
+            tickerQty: false,
+            tickerPrice: true,
+        }
+    };
     render(){
+        const checkErros = this.validationForm(this.state.newtickerVal,
+                                            this.state.tickerQty,
+                                            this.state.tickerprice);
+        console.log(checkErros);
         return(
             <div >
 

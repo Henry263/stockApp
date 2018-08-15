@@ -22,10 +22,21 @@ class Topgainsers extends Component{
     }
 
     loppForapi(){
+
+        var estTime = new Date(); // get local time to be calculated into EST
+        estTime.setHours(estTime.getHours() + estTime.getTimezoneOffset()/60 - 4);
+
+        var estHours = estTime.getHours();
+        var timeInterval;
+        if(estHours >6 && estHours < 16)
+            timeInterval = 20000;
+        else
+            timeInterval = 3500000;
+
         var count = 0;
         this.interval = setInterval(() => {
             this.fetchgainsersData();
-        }, 50000);
+        }, timeInterval);
     }
 
     componentWillMount(){
@@ -85,7 +96,7 @@ class Topgainsers extends Component{
 
         }
         else {
-            console.log("Loading the gainsers data");
+
             return(
                 <div>Still loading the data</div>
             )

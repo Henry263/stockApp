@@ -18,7 +18,8 @@ class Eachticker extends Component{
             tickerclicksymbol:"",
             initialAnatomyComp: true,
             defaulttickerfrommodal: "",
-            tickerfrommodalflag: true
+            tickerfrommodalflag: true,
+            ticekrObj:"",
         };
     }
 
@@ -51,11 +52,9 @@ class Eachticker extends Component{
         var estHours = estTime.getHours();
         var timeInterval;
         if(estHours >6 && estHours < 16)
-            timeInterval = 100000;
+            timeInterval = 10000;
         else
             timeInterval = 1500000;
-
-        console.log("What will be time interval:",timeInterval);
 
         this.interval = setInterval(() => {
             //console.log("Number for loop from quote ticker:",count++);
@@ -65,9 +64,12 @@ class Eachticker extends Component{
 
     componentWillMount() {
         const tickerStringFromCache= localStorage.getItem('initialTickerString');
-        console.log("ticker string from cache: ",tickerStringFromCache);
+        const tickerObjFromCache= localStorage.getItem('initialTickerObj');
+        this.setState({ticekrObj: JSON.parse(tickerObjFromCache)});
+
         if(tickerStringFromCache)
         {
+
             this.setState({isquoteloaded:false});
             this.loppForquote();
             this.setState(
@@ -136,7 +138,9 @@ class Eachticker extends Component{
             this.setState(
                 {
                     quoteFromuser: existingTickersString,
-                    defaulttickerfrommodal:propsVAl.newtickervalforportfolio.newtickerportfolio
+                    defaulttickerfrommodal:propsVAl.newtickervalforportfolio.newtickerportfolio,
+                    ticekrObj:propsVAl.newtickervalforportfolio.newtickerObj
+
                 });
             this.fetchquote(existingTickersString);
         }
@@ -165,6 +169,39 @@ class Eachticker extends Component{
         }
 
     }
+
+    totalGain = (tickername, tickerprice) => {
+        const gaininPercent = this.state.ticekrObj.map((key, i) => {
+            if(key.Ticker == tickername)
+            {
+
+                const gaincalculation = tickerprice - key.Purchasedat;
+                const totalgain = this.floorFigure((gaincalculation/key.Purchasedat)*100, 2);
+
+                return totalgain;
+            }
+
+        });
+        return gaininPercent;
+    }
+    totalInvest = (tickername, tickerprice) => {
+        const investVal = this.state.ticekrObj.map((key, i) => {
+
+            if(key.Ticker == tickername)
+            {
+                const qt = key.Qty;
+                const marketprice = qt*tickerprice;
+
+                const investedamt = qt*key.Purchasedat;
+                const finalamount = marketprice - investedamt;
+
+                //this.gainupOrDown(tickerprice, key.Purchasedat);
+                return this.floorFigure(finalamount,2);
+            }
+        });
+        return investVal;
+    }
+
     render(){
 
         this.checknewtickervalue(this.props);
@@ -204,26 +241,36 @@ class Eachticker extends Component{
                     percentageComponent = this.negativeVal(percentVal);
                     symbolElem = this.negativeTicker(key.quote.symbol);
                 }
+
+                const totalInvest = this.totalInvest(key.quote.symbol, key.quote.latestPrice);
+                const totalgainVal = this.totalGain(key.quote.symbol, key.quote.latestPrice, totalInvest);
+
                 var num = 1;
                 //console.log("Gettling latest values: ",key.quote.latestPrice);
                 return(
                     <div className="eachtickerblock" value={key.quote.symbol} onClick={()=>this.handleOnTickerClick(key.quote.symbol)}>
-                        {symbolElem}
-                        <div className="change-container-div">
-                            <div className="bracket-open">
-                                (
-                            </div>
-                            {percentageComponent}
-                            <div className="bracket-close">
-                                )
+                        <div className="eachticker-header">
+                            {symbolElem}
+                            <div className="change-container-div">
+                                <div className="bracket-open">
+                                    (
+                                </div>
+                                {percentageComponent}
+                                <div className="bracket-close">
+                                    )
+                                </div>
                             </div>
                         </div>
-
                         <div className="tickerprice"><span className="dsign">$</span><span>{key.quote.latestPrice}</span></div>
+
                         <div className="totalVal-div">
-                            <span className="span-lbl-gain">Gain: </span>
-                            <span className="totalValpercent">234% , </span>
-                            <span className="totalVal">$5000000</span>
+
+                            <div className="span-lbl-gain">Gain: </div>
+                            <div className="values-div">
+                                <div id="totalValpercent">% {totalgainVal}</div>
+                                <div id="totalVal">$ {totalInvest}</div>
+                            </div>
+
                         </div>
                     </div>
                 );

@@ -10,23 +10,49 @@ import Toploosers from '../toploosers/toploosers';
 import Newscontainer from '../newssection/newscontainer';
 import Modalcomp from '../modalcomponent/modalcomponent';
 
+import Contactus from '../contactus/contact';
+import Settingscomp from '../settings/settings';
+import Valutcomp from '../valut/valut';
+import Watchlistcomp from '../watchlist/watchlist';
+
+
 class Homepage extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            newtickerportfolio: ""
+            newtickerportfolio: "",
+            newtickerObj:""
         }
     }
-    handlechildtickerval = (newVal) => {
-        this.setState({newtickerportfolio: newVal});
+    handlechildtickerval = (newVal, newObj) => {
+
+        const tickerObjFromCache= localStorage.getItem('initialTickerObj');
+        const formatedJson = JSON.parse(tickerObjFromCache);
+        formatedJson.push(newObj);
+        localStorage.setItem('initialTickerObj', JSON.stringify(formatedJson));
+        this.setState({newtickerportfolio: newVal, newtickerObj: formatedJson});
     }
     componentWillMount(){
+        const defaultTickerObj = [
+            {
+                "Ticker":"AAPL",
+                "Qty": "15",
+                "Purchasedat": "97"
+            },
+            {
+                "Ticker":"TSLA",
+                "Qty": "15",
+                "Purchasedat": "252"
+            }
+        ];
+
         const tickerStringFromCache= localStorage.getItem('initialTickerString');
-        console.log("ticker string from Home component: ",tickerStringFromCache);
+
         if(!tickerStringFromCache)
         {
-            localStorage.setItem('initialTickerString', "AAPL,FB,GBT,AMZN,VTVT,EBIO,TSLA");
+            localStorage.setItem('initialTickerString', "AAPL,TSLA");
+            localStorage.setItem('initialTickerObj', JSON.stringify(defaultTickerObj));
         }
 
     }
@@ -47,10 +73,14 @@ class Homepage extends Component{
 
                             <div className="mainBody">
                                 <div className="mainBodyleft">
-                                    <div className="eachTicker-container">
+                                    <div className="main-container">
                                         <Switch>
                                             <Route path="/" exact render={props => <Eachticker newtickervalforportfolio={this.state}  />}/>
                                             <Route path="/news" component={Newscontainer}/>
+                                            <Route path="/watchlist" component={Watchlistcomp}/>
+                                            <Route path="/valut" component={Valutcomp}/>
+                                            <Route path="/settings" component={Settingscomp}/>
+                                            <Route path="/contact" component={Contactus}/>
                                         </Switch>
                                     </div>
                                 </div>

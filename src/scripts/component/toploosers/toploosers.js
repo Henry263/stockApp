@@ -83,7 +83,6 @@ class Toploosers extends Component{
 
         }
         else {
-            console.log("Loading the gainsers data");
             return(
                 <div>Still loading the data</div>
             )

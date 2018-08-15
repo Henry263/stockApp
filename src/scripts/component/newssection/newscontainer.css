@@ -1,0 +1,18 @@
+.inline-display-news{
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #ff5e05;
+    margin: 0px 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #061a29;
+    font-size: 1.2rem;
+}
+
+.inline-display-news:focus {
+    color: #57a2fffc;
+}
+
+.inline-display-news:hover {
+    color: #57a2fffc;
+}

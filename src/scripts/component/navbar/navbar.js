@@ -11,6 +11,18 @@ class Navbar extends Component{
     setRedirect = () => {
         this.props.history.push("/news")
     };
+    setRedirectWatchlist = () => {
+        this.props.history.push("/watchlist")
+    };
+    setRedirectValut = () => {
+        this.props.history.push("/valut")
+    };
+    setRedirectSettings = () => {
+        this.props.history.push("/settings")
+    };
+    setRedirectContact = () => {
+        this.props.history.push("/contact")
+    };
     setRedirectHome = () => {
         this.props.history.push("/")
     };
@@ -29,7 +41,7 @@ class Navbar extends Component{
                 </div>
 
                 <div className="watchlist-icon-div icon-div">
-                    <div id="icon-setting">
+                    <div id="icon-setting" onClick={this.setRedirectWatchlist}>
                         <FontAwesome.FaBinoculars size={46} />
                     </div>
                     <div id="iconName">Watchlist</div>
@@ -42,19 +54,19 @@ class Navbar extends Component{
                     <div id="iconName">News</div>
                 </div>
                 <div className="watchlist-icon-div icon-div">
-                    <div id="icon-setting">
+                    <div id="icon-setting" onClick={this.setRedirectValut}>
                         <FontAwesome.FaBank size={46} />
                     </div>
                     <div id="iconName">Valut</div>
                 </div>
                 <div className="setting-icon-div icon-div">
-                    <div id="icon-setting">
+                    <div id="icon-setting" onClick={this.setRedirectSettings}>
                         <FontAwesome.FaCog size={46} />
                     </div>
                     <div id="iconName">Settings</div>
                 </div>
                 <div className="contact-icon-div icon-div">
-                    <div id="icon-setting">
+                    <div id="icon-setting" onClick={this.setRedirectContact}>
                         <FontAwesome.FaPhoneSquare size={46} />
                     </div>
                     <div id="iconName">Contact Us</div>
