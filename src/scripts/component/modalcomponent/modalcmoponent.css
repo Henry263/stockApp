@@ -5,7 +5,7 @@
     right: 30%;
     /* bottom: 10%; */
     background-color: #484848e3;
-    height: 370px;
+    height: 420px;
 }
 
 .Overlay {
@@ -23,14 +23,14 @@
 
 .modal-input-style {
     display: inline-block;
-    width: 68%;
+    width: 55%;
 }
 .modal-label-style {
     display: inline-block;
     width: 30%;
 }
 .modal-ip-margin {
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
 input.modal-back-color {
     background-color: #454545;
@@ -43,6 +43,7 @@ input.modal-back-color {
     color: #99f189;
     height: 20px;
     font-size: 0.8rem;
+    width:100%;
 }
 .modal-buttons-div {
     text-align: center;
@@ -60,6 +61,10 @@ button.modal-button-style {
 button.modal-button-style:hover {
     color: #99f189;
 }
+button.modal-button-style[disabled]:hover {
+    color: white;
+    cursor: no-drop;
+}
 button.modal-button-style:focus {
     color: #99f189;
 }
@@ -76,4 +81,19 @@ button.modal-button-style:focus {
     border: 1px solid lightgray;
     margin-bottom: 25px;
     border-radius: 5px;
+}
+
+.input-valid-color{
+    border: 0.5px solid #d6531c !important;
+    box-shadow: 2px 2px #9c7767;
+}
+.error-input-icon{
+    color: #d6531c;
+    display: inline-block;
+    width: 10%;
+    margin-left: 10px;
+}
+
+.hidden-err-icon{
+    visibility: hidden;
 }

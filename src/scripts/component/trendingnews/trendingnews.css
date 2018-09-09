@@ -2,7 +2,7 @@
 .trendingnews-div{
     display: block;
     border: 2px solid;
-    border-radius: 3%;
+    border-radius: 5px;
     margin-top: 20px;
 }
 .eachnews-div {

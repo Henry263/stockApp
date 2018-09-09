@@ -8,9 +8,7 @@ import * as FontAwesome from 'react-icons/lib/fa'
 
 class Navbar extends Component{
 
-    setRedirect = () => {
-        this.props.history.push("/news")
-    };
+
     setRedirectWatchlist = () => {
         this.props.history.push("/watchlist")
     };
@@ -27,7 +25,7 @@ class Navbar extends Component{
         this.props.history.push("/")
     };
     render(){
-        console.log(FontAwesome);
+        //console.log(FontAwesome);
         return(
             <div className="navbardiv">
                 <div className="avtarholder">
@@ -47,12 +45,6 @@ class Navbar extends Component{
                     <div id="iconName">Watchlist</div>
                 </div>
 
-                <div className="watchlist-icon-div icon-div" >
-                    <div id="icon-setting" onClick={this.setRedirect}>
-                        <FontAwesome.FaNewspaperO size={46} />
-                    </div>
-                    <div id="iconName">News</div>
-                </div>
                 <div className="watchlist-icon-div icon-div">
                     <div id="icon-setting" onClick={this.setRedirectValut}>
                         <FontAwesome.FaBank size={46} />
@@ -78,3 +70,18 @@ class Navbar extends Component{
 
 
 export default withRouter(Navbar);
+
+/*
+*
+                <div className="watchlist-icon-div icon-div" >
+                    <div id="icon-setting" onClick={this.setRedirect}>
+                        <FontAwesome.FaNewspaperO size={46} />
+                    </div>
+                    <div id="iconName">News</div>
+                </div>
+
+                 setRedirect = () => {
+        this.props.history.push("/news")
+    };
+*
+* */

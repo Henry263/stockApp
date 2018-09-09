@@ -43,7 +43,7 @@ module.exports = {
         var proxyAPI = "https://cors-anywhere.herokuapp.com/";
         var quoteAPIurl = "https://api.iextrading.com/1.0/stock/market/batch?types=quote&symbols=";
         var quoteapiUrl = proxyAPI+quoteAPIurl+quotes;
-        return axios.get(quoteapiUrl,
+        return axios.get(quoteAPIurl+quotes,
             {
                 headers: ""
             },
@@ -59,9 +59,30 @@ module.exports = {
         )
     },
 
+    watchlistQuote: function(quotes){
+
+        //var quotes = "https://cors-anywhere.herokuapp.com/https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb,tsla&types=quote,news&range=1m&last=5";
+        var proxyAPI = "https://cors-anywhere.herokuapp.com/";
+        var wlquoteAPIurl = "https://api.iextrading.com/1.0/stock/market/batch?types=quote&symbols=";
+        var wlquoteapiUrl = proxyAPI+wlquoteAPIurl+quotes;
+        return axios.get(wlquoteAPIurl+quotes,
+            {
+                headers: ""
+            },
+            { mode: 'no-cors' },
+            {
+                xhrFields: {
+                    withCredentials: true
+                }
+            })
+            .then(function(response){
+                    return response.data;
+                }
+            )
+    },
     topgainers: function(){
         var _topgainersUrl = "https://cors-anywhere.herokuapp.com/https://api.iextrading.com/1.0/stock/market/list/gainers";
-        return axios.get(_topgainersUrl,
+        return axios.get("https://api.iextrading.com/1.0/stock/market/list/gainers",
             {
                 headers: ""
             },
@@ -78,7 +99,7 @@ module.exports = {
     },
     toploosers: function(){
         var _toploosersurl = "https://cors-anywhere.herokuapp.com/https://api.iextrading.com/1.0/stock/market/list/losers";
-        return axios.get(_toploosersurl,
+        return axios.get("https://api.iextrading.com/1.0/stock/market/list/losers",
             {
                 headers: ""
             },
@@ -95,7 +116,7 @@ module.exports = {
     },
     tickeranatomy: function(tickerVAl){
         var _toploosersurl = "https://cors-anywhere.herokuapp.com/https://api.iextrading.com/1.0/stock/"+tickerVAl+"/batch?types=quote,news,chart,stats&range=1m&last=15";
-        return axios.get(_toploosersurl,
+        return axios.get("https://api.iextrading.com/1.0/stock/"+tickerVAl+"/batch?types=quote,news,chart,stats&range=1m&last=15",
             {
                 headers: ""
             },
@@ -110,7 +131,42 @@ module.exports = {
                 }
             )
     },
+    eachNewsfeed: function(source){
+    var eachnewsUrl = "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey=dd0675577c8744e7b7e39ace6fd37050";
+    return axios.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey=dd0675577c8744e7b7e39ace6fd37050",
+        {
+            headers: ""
+        },
+        { mode: 'no-cors' },
+        {
+            xhrFields: {
+                withCredentials: true
+            }
+        })
+        .then(function(response){
+                return response.data;
+            }
+        )
+    },
 
+    getsymbolAutocomplete: function(autocompletewords){
+        var autocompleteUrl = "https://cors-anywhere.herokuapp.com/http://d.yimg.com/aq/autoc?query="+autocompletewords+"&region=US&lang=en-US";
+        return axios.get(autocompleteUrl,
+            {
+                headers: ""
+            },
+            { mode: 'no-cors' },
+            {
+                xhrFields: {
+                    withCredentials: true
+                }
+            })
+            .then(function(response){
+                    return response.data;
+                }
+            )
+    },
 }
 
+//
 

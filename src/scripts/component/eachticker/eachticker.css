@@ -2,7 +2,7 @@
 .eachtickerblock{
     display: inline-block;
     width: 11vw;
-    height: 95px;
+    height: 135px;
     padding: 5px;
     background-color: #05345030;
     position: relative;
@@ -94,23 +94,32 @@ div.up-down-icon-each {
 }
 
 .totalVal-div{
-    text-align: right;
+    text-align: left;
     margin-top: 10px;
     font-size: 0.9rem;
 }
 
 #totalValpercent{
     margin-right: 5px;
+    display: inline-block;
 }
-
+div#totalVal {
+    display: inline-block;
+}
 .span-lbl-gain {
     color: #2bffe5;
     vertical-align: top;
 }
 
-.values-div, .span-lbl-gain{
+.values-div{
     display: inline-block;
 }
-.values-div{
-  margin-left: 10px;
+
+.addstock-div{
+    vertical-align: top;
+    font-size: 1.2rem;
+}
+.addstock-label {
+    margin-top: 5px;
+    font-size: 1.7rem;
 }

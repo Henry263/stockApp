@@ -1,0 +1,116 @@
+.inline-class-wl{
+    display: inline-block;
+}
+.w-ticker-name{
+
+}
+.w-ticker-price{
+
+}
+.w-ticker-change-p{
+
+}
+.w-ticker-change-m{
+
+}
+.w-ticker-volume{
+
+}
+
+.w-header-adjust, .w-ticker-adjust{
+    width: 16%;
+    text-align: center;
+}
+.w-header-name{
+
+}
+.w-header-price{
+
+}
+.w-header-change-p{
+
+}
+.w-header-change-m{
+
+}
+.w-header-volume{
+
+}
+
+.each-watclist, .each-watclist-header {
+    border: 1px solid;
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+.each-watclist-header {
+    font-size: 1.4rem;
+    border:1px solid #9adaff;
+    background-color: #101d2b;
+}
+.each-watclist{
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.search-ticker {
+    border: 1px solid #9adaff;
+    background-color: #101d2b;
+    padding: 10px;
+    text-align: end;
+    border-radius: 5px;
+    margin: 20px 0px;
+}
+
+.button-watchlist-style{
+    display: inline-block;
+}
+
+input#watchlist-input {
+    width: 200px;
+    margin-right: 15px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: #101d2b;
+}
+.buttom-watchlist{
+    height: 30px;
+}
+.buttom-watchlist {
+    height: 35px;
+    /* vertical-align: top; */
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 5px 20px;
+    background-color: #101d2b;
+    color: white;
+}
+
+.symbol-autocomplete {
+    position: absolute;
+    /* right: -55px; */
+    left: 500px;
+    text-align: left;
+    border: 1px solid;
+    background-color: #101d2b;
+    padding: 5px;
+    border-radius: 3px;
+    width: 305px;
+    font-size: 1.2rem;
+}
+
+.each-symbol{
+    margin-bottom: 5px;
+    width: 30%;
+}
+.each-symbol-name{
+    margin-bottom: 5px;
+    width: 68%;
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.typeOfdisplay{
+    display: inline-block;
+}

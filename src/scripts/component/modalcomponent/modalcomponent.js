@@ -1,86 +1,114 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import { Redirect, withRouter } from 'react-router-dom';
+
 import * as FontAwesome from 'react-icons/lib/fa';
 import './modalcmoponent.css';
 
 class Modalcomp extends Component{
-    constructor(){
-      super();
-      this.state = {
-          showmodal: false,
-          newtickerVal: "",
-          tickerQty:"",
-          tickerprice:"",
-          tickertotal:""
-      }
+    constructor(props){
+      super(props);
+
+          this.state = {
+              showmodal: false,
+              newtickerVal: "",
+              tickerQty:"",
+              tickerprice:"",
+              tickertotal:props.tickertotal,
+              errorPrice: false,
+              errorQty: false,
+              erriconDisplay: false,
+              submitdisabled: true
+          };
+
     };
     clsoemodal = () => {
         this.setState({showmodal: false});
+        this.setState({newtickerVal: ""});
     };
     openmodal = () => {
         this.setState({showmodal: true});
     };
     clsoemodalnpasstickerval = () => {
-        console.log("printing state values: ",this.state.newtickerVal+", "+this.state.tickerQty, +", "+this.state.tickertotal);
+       // console.log("printing state values: ",this.props.location.pathname );
         const tickerObj = {};
         tickerObj["Ticker"] = this.state.newtickerVal;
         tickerObj["Qty"] = this.state.tickerQty;
         tickerObj["Purchasedat"] = this.state.tickerprice;
         this.props.handlerFrommodaltohome(this.state.newtickerVal, tickerObj);
 
-
         this.setState({showmodal: false, newtickerVal:"", tickerQty:"", tickerprice:""});
     };
-    changenewtickerval = (e) => {
-        this.setState({newtickerVal: e.target.value});
+    validateInvestment = (totalinvestvar) => {
+        //console.log("How much invested: ", totalinvestvar);
+        if(totalinvestvar)
+        {
+            this.setState({submitdisabled: false});
+        }
+        else {
+            this.setState({submitdisabled: true});
+        }
+    }
+    changenewtickerval = () => event => {
+        //console.log("ticker values: ",event.target.value);
+        var validateTickerName = /^[A-Za-z]+$/;
+            //
+        if (event.target.value.toUpperCase().match(/^[a-zA-Z]+$/))
+        {
+            console.log('Only alphabets are allowed: ', event.target.value);
+            this.setState({newtickerVal: event.target.value.toUpperCase()}, () => {this.validateInvestment(this.state.tickertotal)});
+            return false;
+        }
+
+        if(this.state.newtickerVal.length == 1)
+        {
+            console.log("out of loop: ", this.state.newtickerVal);
+            this.setState({newtickerVal: ""}, () => {this.validateInvestment(this.state.tickertotal)});
+        }
     };
     changenewtickerqty = (e) => {
-        this.setState({tickerQty: e.target.value});
-    };
-    changenewtickerprice = (e) => {
-        this.setState({tickerprice: e.target.value});
-    };
-    changenewtickertotal = (e) => {
-        this.setState({tickertotal: e.target.value});
-    };
-    validationForm = (tickerName, tickerQty, tickerPrice) => {
-        /*
-        console.log("Ticker Name: ", tickerName);
-        console.log("Ticker Quantity: ", tickerQty);
-        console.log("Ticker price: ", tickerPrice);
-        */
-        var checkdecimal = /^\d*$/;
-        var checkPrice = /^\d*\.\d*/;
-        var checkTickerName = /^[a-zA-Z]+$/;
+    var tickerQty = /^[\d]+$/;
+        if(e.target.value.match(tickerQty))
+            this.setState({errorQty: false});
+        else
+            this.setState({errorQty: true});
 
-        if (checkPrice.test(tickerPrice) && tickerPrice) {
-            console.log("Correct qty: ",tickerPrice);
-        }
-        if (checkdecimal.test(tickerQty) && tickerQty) {
-            console.log("Correct qty: ",tickerQty);
-        }
-        if (checkTickerName.test(tickerName) && tickerName) {
-            console.log("Correct qty: ",tickerName);
-        }
-        return{
-            tickerName: true,
-            tickerQty: false,
-            tickerPrice: true,
-        }
+        this.setState({tickerQty: e.target.value}, () => {this.validateInvestment(this.state.tickertotal)});
+        // Above validateInvestment function call is called called back.
+        // this is reference : https://medium.com/@voonminghann/when-to-use-callback-function-of-setstate-in-react-37fff67e5a6c
     };
+    changenewtickerprice = (e, qty) => {
+        var checkFloatNDecimal = /(?<=^| )\d+(\.\d+)?(?=$| )|(?<=^| )\.\d+(?=$| )/;
+        if(e.target.value.match(checkFloatNDecimal))
+        {
+            //console.log("valid value", qty);
+            var investment="";
+            if(qty)
+            {
+                investment = qty*e.target.value;
+                //console.log("Type of investment obj: ", typeof investment)
+            }
+            this.setState({errorPrice: false,tickertotal:investment.toFixed(2)}, () => {this.validateInvestment(this.state.tickertotal)});
+        }
+        else
+        {
+            this.setState({errorPrice: true, tickertotal:""}, () => {this.validateInvestment(this.state.tickertotal)});
+        }
+        this.setState({tickerprice: e.target.value});
+
+    };
+
+
     render(){
-        const checkErros = this.validationForm(this.state.newtickerVal,
-                                            this.state.tickerQty,
-                                            this.state.tickerprice);
-        console.log(checkErros);
+
+
         return(
             <div >
 
                 <div className="container-plus-icon" onClick={this.openmodal}>
                     <div id="icon-add" className="icon-add-cp" style={{color: '#5af527'}}>
-                        <FontAwesome.FaPlusCircle size={26} />
+                        <FontAwesome.FaPlusCircle size={60} />
                     </div>
-                    <div>Add Stock</div>
                 </div>
                 <Modal
                     isOpen={this.state.showmodal}
@@ -100,10 +128,11 @@ class Modalcomp extends Component{
                                 <input type="text"
                                        className="modal-back-color"
                                        id="tickerinput"
-                                       onChange={this.changenewtickerval}
+                                       onChange={this.changenewtickerval()}
                                        value={this.state.newtickerVal}
                                 />
                             </div>
+                            <div className={` error-input-icon ${this.state.erriconDisplay ? '' : 'hidden-err-icon'}`} ><FontAwesome.FaExclamationTriangle size={20}/></div>
                         </div>
                         <div className="tickerqty-div modal-ip-margin">
                             <div className="modal-label-style">
@@ -111,13 +140,14 @@ class Modalcomp extends Component{
                             </div>
                             <div className="modal-input-style">
                                 <input type="text"
-                                       className="modal-back-color"
+                                       className={`modal-back-color ${this.state.errorQty ? 'input-valid-color' : ''}`}
                                        id="tickerinput"
                                        pattern="^[1-9]\d*$"
                                        onChange={this.changenewtickerqty}
                                        value={this.state.tickerQty}
                                 />
                             </div>
+                            <div className={` error-input-icon ${this.state.errorQty ? '' : 'hidden-err-icon'}`} ><FontAwesome.FaExclamationTriangle size={20}/></div>
                         </div>
                         <div className="tickerprice-div modal-ip-margin">
                             <div className="modal-label-style">
@@ -125,13 +155,13 @@ class Modalcomp extends Component{
                             </div>
                             <div className="modal-input-style">
                                 <input type="text"
-                                       className="modal-back-color"
+                                       className={`modal-back-color ${this.state.errorPrice ? 'input-valid-color' : ''}`}
                                        id="tickerprice"
-                                       pattern="^[1-9]\d*(\.\d+)?$"
-                                       onChange={this.changenewtickerprice}
+                                       onChange={(evt) => this.changenewtickerprice(evt,this.state.tickerQty)}
                                        value={this.state.tickerprice}
                                 />
                             </div>
+                            <div className={` error-input-icon ${this.state.errorPrice ? '' : 'hidden-err-icon'}`} ><FontAwesome.FaExclamationTriangle size={20}/></div>
                         </div>
                         <div className="tickertotal-div modal-ip-margin">
                             <div className="modal-label-style">
@@ -141,13 +171,13 @@ class Modalcomp extends Component{
                                 <input type="text"
                                        className="modal-back-color"
                                        id="tickertotal"
-                                       onChange={this.changenewtickertotal}
                                        value={this.state.tickertotal}
                                 />
                             </div>
+                            <div className={` error-input-icon ${this.state.erriconDisplay ? '' : 'hidden-err-icon'}`} ><FontAwesome.FaExclamationTriangle size={20}/></div>
                         </div>
                         <div className="modal-buttons-div">
-                            <button id="modal-add-button" className="modal-button-style" onClick={() => this.clsoemodalnpasstickerval()}>Add To Portfolio</button>
+                            <button id="modal-add-button" className="modal-button-style" onClick={() => this.clsoemodalnpasstickerval()} disabled={this.state.submitdisabled}>Add To Portfolio</button>
                             <button id="modal-close-button" className="modal-button-style" onClick={() => this.clsoemodal()}>Close Modal</button>
                         </div>
                     </div>

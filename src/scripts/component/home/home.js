@@ -15,6 +15,10 @@ import Settingscomp from '../settings/settings';
 import Valutcomp from '../valut/valut';
 import Watchlistcomp from '../watchlist/watchlist';
 
+import Livemarketfeed from '../livemarketfeed/livemarketfeed';
+import Trendingnews from '../trendingnews/trendingnews';
+
+
 
 class Homepage extends Component{
 
@@ -22,17 +26,22 @@ class Homepage extends Component{
         super(props);
         this.state = {
             newtickerportfolio: "",
-            newtickerObj:""
+            newtickerObj:"",
+            totalinvest:""
         }
     }
     handlechildtickerval = (newVal, newObj) => {
-
+        //console.log("from home component: ",this.props);
         const tickerObjFromCache= localStorage.getItem('initialTickerObj');
         const formatedJson = JSON.parse(tickerObjFromCache);
         formatedJson.push(newObj);
         localStorage.setItem('initialTickerObj', JSON.stringify(formatedJson));
         this.setState({newtickerportfolio: newVal, newtickerObj: formatedJson});
-    }
+    };
+    getinvestmentvalue = (apiresponse, arrayStock) =>{
+        //console.log(apiresponse);
+        this.setState({totalinvest:apiresponse});
+    };
     componentWillMount(){
         const defaultTickerObj = [
             {
@@ -48,7 +57,12 @@ class Homepage extends Component{
         ];
 
         const tickerStringFromCache= localStorage.getItem('initialTickerString');
+        const tickerStringWatchlist= localStorage.getItem('watchlistTickers');
 
+        if(!tickerStringWatchlist)
+        {
+            localStorage.setItem('watchlistTickers', "AAPL,TSLA");
+        }
         if(!tickerStringFromCache)
         {
             localStorage.setItem('initialTickerString', "AAPL,TSLA");
@@ -67,16 +81,12 @@ class Homepage extends Component{
                             <div className="_cp_container">
                                 <Cportfolio />
                             </div>
-                            <div className="modal-div">
-                                <Modalcomp handlerFrommodaltohome={this.handlechildtickerval}/>
-                            </div>
 
                             <div className="mainBody">
                                 <div className="mainBodyleft">
                                     <div className="main-container">
                                         <Switch>
-                                            <Route path="/" exact render={props => <Eachticker newtickervalforportfolio={this.state}  />}/>
-                                            <Route path="/news" component={Newscontainer}/>
+                                            <Route path="/" exact render={props => <Eachticker callbacktohome={this.getinvestmentvalue}  />}/>
                                             <Route path="/watchlist" component={Watchlistcomp}/>
                                             <Route path="/valut" component={Valutcomp}/>
                                             <Route path="/settings" component={Settingscomp}/>
@@ -87,6 +97,10 @@ class Homepage extends Component{
                                 <div className="mainBodyright">
                                     <Topgainsers gainersQuotes={this.state}/>
                                     <Toploosers loosersQuotes={this.state}/>
+                                </div>
+                                <div className="default-news-div">
+                                    <Livemarketfeed/>
+                                    <Trendingnews/>
                                 </div>
                             </div>
                         </div>
@@ -103,4 +117,12 @@ class Homepage extends Component{
 }
 
 export default Homepage;
+
+/*
+* <Route path="/news" component={Newscontainer}/>
+* <div className="modal-div">
+                                <Modalcomp handlerFrommodaltohome={this.handlechildtickerval}/>
+                            </div>
+
+* */
 
