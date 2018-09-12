@@ -36,7 +36,7 @@ class Livemarketfeed extends Component{
 
     }
     render(){
-        if(this.state.isloadinglivefeed){
+        if(this.state.isloadinglivefeed && this.state.livefeed > 0){
             //console.log("Inside the trending news component: ",this.props.trendingnews.newsArray);
             const newsHeadlines = this.state.livefeedArray.map((key, i) => {
                 return (
@@ -59,7 +59,7 @@ class Livemarketfeed extends Component{
         else{
             return(
 
-                <p>Still loading the data</p>
+                <p></p>
             );
         }
     }

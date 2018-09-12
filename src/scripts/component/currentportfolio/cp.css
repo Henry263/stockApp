@@ -1,8 +1,6 @@
 div.cmn-style {
     display: inline-block;
-    vertical-align: top;
-    margin-top: 20px;
-    margin-bottom: 20px;
+
 }
 div#cp-label {
     font-size: 2rem;
@@ -12,7 +10,7 @@ div#cp-label {
 .ac-value{
     font-size: 2rem;
     margin-right: 10px;
-    color: #396cfb;
+    color: #4ee4ff;
 }
 
 .ac-perventage-val{
@@ -30,8 +28,14 @@ div.icon-up-down-cp {
 }
 .ac-perventage-val{
     padding-top: 5px;
-    color: #5af527;
     margin-right: 5px;
+    margin-left: 5px;
+}
+.gain-color{
+    color: #5af527;
+}
+.loss-color{
+    color: rgb(255, 93, 40);
 }
 .container-plus-icon {
     margin: 10px;
@@ -42,4 +46,8 @@ div.icon-up-down-cp {
     border-radius: 10px;
     padding: 5px 10px;
     cursor: pointer;
+}
+.comma-spacing{
+    margin-left: 5px;
+    margin-right: 10px;
 }

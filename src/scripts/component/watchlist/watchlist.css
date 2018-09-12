@@ -2,39 +2,50 @@
     display: inline-block;
 }
 .w-ticker-name{
-
+    width: 12%;
+}
+.w-ticker-delete {
+    text-align: end !important;
+    width: 10%;
+    cursor: pointer;
 }
 .w-ticker-price{
-
+    width: 15%;
 }
 .w-ticker-change-p{
-
+    width: 15%;
 }
 .w-ticker-change-m{
-
+    width: 15%;
 }
 .w-ticker-volume{
-
+    width: 15%;
+}
+.w-ticker-mcap{
+    width: 14%;
+}
+li.each-symbol-found {
+    list-style: none;
+    cursor: pointer;
 }
 
 .w-header-adjust, .w-ticker-adjust{
-    width: 16%;
     text-align: center;
 }
 .w-header-name{
-
+    width: 12%;
 }
 .w-header-price{
-
+    width: 15%;
 }
 .w-header-change-p{
-
+    width: 15%;
 }
 .w-header-change-m{
-
+    width: 15%;
 }
 .w-header-volume{
-
+    width: 15%;
 }
 
 .each-watclist, .each-watclist-header {
@@ -90,7 +101,7 @@ input#watchlist-input {
 .symbol-autocomplete {
     position: absolute;
     /* right: -55px; */
-    left: 500px;
+    left: 390px;
     text-align: left;
     border: 1px solid;
     background-color: #101d2b;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import apiobj from '../../../utils/api';
 import { Redirect, withRouter } from 'react-router-dom';
 
 import * as FontAwesome from 'react-icons/lib/fa';
@@ -18,7 +19,9 @@ class Modalcomp extends Component{
               errorPrice: false,
               errorQty: false,
               erriconDisplay: false,
-              submitdisabled: true
+              submitdisabled: true,
+              autocompleteSymboladdstock:"",
+              shownSymbolnewticker:true
           };
 
     };
@@ -50,22 +53,51 @@ class Modalcomp extends Component{
         }
     }
     changenewtickerval = () => event => {
+        this.setState({shownSymbolnewticker: false});
         //console.log("ticker values: ",event.target.value);
         var validateTickerName = /^[A-Za-z]+$/;
             //
         if (event.target.value.toUpperCase().match(/^[a-zA-Z]+$/))
         {
             console.log('Only alphabets are allowed: ', event.target.value);
+            this.getAutocompleteSymbols(event.target.value);
             this.setState({newtickerVal: event.target.value.toUpperCase()}, () => {this.validateInvestment(this.state.tickertotal)});
             return false;
         }
-
+        this.getAutocompleteSymbols(event.target.value);
         if(this.state.newtickerVal.length == 1)
         {
             console.log("out of loop: ", this.state.newtickerVal);
-            this.setState({newtickerVal: ""}, () => {this.validateInvestment(this.state.tickertotal)});
+            this.setState({newtickerVal: "",shownSymbolnewticker:true}, () => {this.validateInvestment(this.state.tickertotal)});
         }
     };
+    copySymbolName = (symbolName) => {
+        this.setState({newtickerVal: symbolName, shownSymbolnewticker:true});
+    }
+    formatAutoSymbol = (symbolsList) => {
+        const eachsymbolDiv = symbolsList.map((key, i) => {
+
+            if(key.exchDisp === "NASDAQ" || key.exchDisp === "NYSE")
+            {
+                console.log("each symbol: ",key.symbol);
+                console.log("each symbol: ",key.name);
+                return(<li className="each-symbol-found" onClick={() => this.copySymbolName(key.symbol)}>
+                        <div className="each-symbol typeOfdisplay">{key.symbol}</div>
+                        <div className="each-symbol-name typeOfdisplay">{key.name}</div>
+                    </li>
+                );
+            }
+        });
+        this.setState({autocompleteSymboladdstock:eachsymbolDiv});
+    }
+    getAutocompleteSymbols = (symbolChar) => {
+
+        apiobj.getsymbolAutocomplete(symbolChar)
+            .then(function (response) {
+                this.formatAutoSymbol(response.ResultSet.Result);
+            }.bind(this));
+    }
+
     changenewtickerqty = (e) => {
     var tickerQty = /^[\d]+$/;
         if(e.target.value.match(tickerQty))
@@ -101,7 +133,9 @@ class Modalcomp extends Component{
 
     render(){
 
-
+        var hidden = {
+            display: this.state.shownSymbolnewticker ? "none" : "block"
+        }
         return(
             <div >
 
@@ -131,6 +165,9 @@ class Modalcomp extends Component{
                                        onChange={this.changenewtickerval()}
                                        value={this.state.newtickerVal}
                                 />
+                                <div class="symbol-autocomplete-newticker" style={ hidden } >
+                                    <div>{this.state.autocompleteSymboladdstock}</div>
+                                </div>
                             </div>
                             <div className={` error-input-icon ${this.state.erriconDisplay ? '' : 'hidden-err-icon'}`} ><FontAwesome.FaExclamationTriangle size={20}/></div>
                         </div>

@@ -24,6 +24,7 @@ class Homepage extends Component{
 
     constructor(props){
         super(props);
+        this.getinvestmentvalue = this.getinvestmentvalue.bind(this);
         this.state = {
             newtickerportfolio: "",
             newtickerObj:"",
@@ -38,11 +39,13 @@ class Homepage extends Component{
         localStorage.setItem('initialTickerObj', JSON.stringify(formatedJson));
         this.setState({newtickerportfolio: newVal, newtickerObj: formatedJson});
     };
-    getinvestmentvalue = (apiresponse, arrayStock) =>{
-        //console.log(apiresponse);
-        this.setState({totalinvest:apiresponse});
+
+    getinvestmentvalue = (getvalueformchild) =>{
+        console.log("Object fron child: ",getvalueformchild);
+        this.setState({totalinvest:getvalueformchild});
     };
     componentWillMount(){
+        console.log("home componentwillmount method");
         const defaultTickerObj = [
             {
                 "Ticker":"AAPL",
@@ -71,7 +74,9 @@ class Homepage extends Component{
 
     }
     render(){
+        console.log("From home funcction",this.props);
             return(
+
                 <Router>
                     <div className="topbar">
                         <div className="appLogo-holder">
@@ -79,14 +84,14 @@ class Homepage extends Component{
                         </div>
                         <div className="stockAnalytics-holder">
                             <div className="_cp_container">
-                                <Cportfolio />
+                                <Cportfolio assetval={this.state.totalinvest}/>
                             </div>
 
                             <div className="mainBody">
                                 <div className="mainBodyleft">
                                     <div className="main-container">
                                         <Switch>
-                                            <Route path="/" exact render={props => <Eachticker callbacktohome={this.getinvestmentvalue}  />}/>
+                                            <Route path="/" exact render={() => <Eachticker getvaluefromchild={(obj) => this.getinvestmentvalue(obj)}  />}/>
                                             <Route path="/watchlist" component={Watchlistcomp}/>
                                             <Route path="/valut" component={Valutcomp}/>
                                             <Route path="/settings" component={Settingscomp}/>
@@ -97,11 +102,10 @@ class Homepage extends Component{
                                 <div className="mainBodyright">
                                     <Topgainsers gainersQuotes={this.state}/>
                                     <Toploosers loosersQuotes={this.state}/>
-                                </div>
-                                <div className="default-news-div">
                                     <Livemarketfeed/>
                                     <Trendingnews/>
                                 </div>
+
                             </div>
                         </div>
 

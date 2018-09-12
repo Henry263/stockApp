@@ -107,7 +107,7 @@ div#totalVal {
     display: inline-block;
 }
 .span-lbl-gain {
-    color: #2bffe5;
+    color: #41fcff;
     vertical-align: top;
 }
 
@@ -122,4 +122,10 @@ div#totalVal {
 .addstock-label {
     margin-top: 5px;
     font-size: 1.7rem;
+}
+.positivecolorcode{
+    color: #7eff10;
+}
+.negativecolorcode{
+    color: rgb(255, 93, 40);
 }

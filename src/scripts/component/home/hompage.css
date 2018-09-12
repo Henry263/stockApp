@@ -4,13 +4,15 @@ body{
     color: #fdfffffc;
     font-family: Calibri;
 }
-
+.hompageStyle {
+    padding-bottom: 100px;
+}
 .appLogo-holder{
 
     width: 9%;
     display: inline-block;
     background-color: #05345030;
-    height: 100vh;
+    height: 100vw;
 }
 .stockAnalytics-holder{
     width: 89.9%;
@@ -35,12 +37,14 @@ body{
 .headline-header {
     font-size: 1.3rem;
     font-weight: 500;
-    background: white;
-    color: #1772c5cf;
+    background-color: #101d2b;
+    color: #41fcff;
     padding: 10px;
     text-align: center;
     margin: 5px;
     border-radius: 5px;
+    border-bottom: 2px solid;
+    border-color: white;
 }
 .modal-div {
     display: inline-block;
