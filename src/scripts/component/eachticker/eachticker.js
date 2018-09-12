@@ -68,7 +68,7 @@ class Eachticker extends Component{
         if(estHours >6 && estHours < 16)
             timeInterval = 10000;
         else
-            timeInterval = 10000;
+            timeInterval = 15000;
 
         this.interval = setInterval(() => {
             //console.log("Number for loop from quote ticker:",count++);
