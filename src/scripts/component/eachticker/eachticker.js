@@ -31,10 +31,11 @@ class Eachticker extends Component{
     handlechildtickerval = (newVal, newObj) => {
         console.log("from eachticker component: ",newVal + ", ", newObj);
         const tickerObjFromCache= localStorage.getItem('initialTickerObj');
-        const formatedJson = JSON.parse(tickerObjFromCache);
-        formatedJson.push(newObj);
+        let formatedJson = JSON.parse(tickerObjFromCache);
+        formatedJson = Object.assign(newObj, formatedJson);
+        //formatedJson.push(newObj);
         localStorage.setItem('initialTickerObj', JSON.stringify(formatedJson));
-        this.setState({newtickerportfolio: newVal, newtickerObj: formatedJson});
+        this.setState({newtickerportfolio: newVal, newtickerObj: formatedJson}, () => this.checknewtickervalue());
     };
     toggle() {
 
@@ -148,7 +149,8 @@ class Eachticker extends Component{
      * @purpose: to check everytime new stock ticker and make api call.
      */
     checknewtickervalue = () => {
-
+        console.log("state newtickerportfolio: ",this.state.newtickerportfolio);
+        console.log("state defaulttickerfrommodal: ",this.state.defaulttickerfrommodal);
         if(this.state.newtickerportfolio !== this.state.defaulttickerfrommodal){
 
             const existingTickersString = this.state.quoteFromuser+","+this.state.newtickerportfolio;
@@ -195,18 +197,10 @@ class Eachticker extends Component{
      */
     totalGain = (tickername, tickerprice) => {
         var gaininPercent;
-        this.state.ticekrObj.map((key, i) => {
-            if(key.Ticker == tickername)
-            {
+        const gaincalculation = tickerprice - this.state.ticekrObj[tickername]["Purchasedat"];
+        const totalgain = this.floorFigure((gaincalculation/this.state.ticekrObj[tickername]["Purchasedat"])*100, 2);
 
-                const gaincalculation = tickerprice - key.Purchasedat;
-                const totalgain = this.floorFigure((gaincalculation/key.Purchasedat)*100, 2);
-
-                gaininPercent = totalgain;
-            }
-
-        });
-
+        gaininPercent = totalgain;
         return gaininPercent;
     };
 
@@ -217,15 +211,10 @@ class Eachticker extends Component{
      */
     totalPerstock = (tname, tprice) => {
         var totalperstock;
-        this.state.ticekrObj.map((key, i) => {
-            if(key.Ticker == tname)
-            {
-                const totalcalculation = tprice * key.Qty;
-                var totalperstocknumber = this.floorFigure(totalcalculation,2);
+        const totalcalculation = tprice * this.state.ticekrObj[tname]["Qty"];
+        var totalperstocknumber = this.floorFigure(totalcalculation,2);
 
-                totalperstock = totalperstocknumber;
-            }
-        });
+        totalperstock = totalperstocknumber;
         return totalperstock;
     };
 
@@ -237,18 +226,14 @@ class Eachticker extends Component{
      */
     totalInvest = (tickername, tickerprice) => {
         var investAmount;
-        this.state.ticekrObj.map((key, i) => {
 
-            if(key.Ticker == tickername)
-            {
-                const qt = key.Qty;
-                const marketprice = qt*tickerprice;
+        const qt = this.state.ticekrObj[tickername]["Qty"];
+        const marketprice = qt*tickerprice;
 
-                const investedamt = qt*key.Purchasedat;
-                const finalamount = marketprice - investedamt;
-                investAmount = this.floorFigure(finalamount,2);
-            }
-        });
+        const investedamt = qt*this.state.ticekrObj[tickername]["Purchasedat"];
+        const finalamount = marketprice - investedamt;
+        investAmount = this.floorFigure(finalamount,2);
+
         return investAmount;
 
     };
@@ -257,7 +242,32 @@ class Eachticker extends Component{
             return "positivecolorcode";
         else
             return "negativecolorcode";
-    }
+    };
+
+    removeticker = (symboltoremove) => {
+        var geteachString= localStorage.getItem('initialTickerString');
+        geteachString = geteachString.replace(","+symboltoremove,"");
+        //localStorage.setItem('each ticker string: ', geteachString);
+        console.log("After removal of symbol string val : ", symboltoremove);
+        localStorage.setItem('initialTickerString', geteachString);
+
+        let getlocalstorageObj= localStorage.getItem('initialTickerObj');
+        let getlocalstorageObjparsed = JSON.parse(getlocalstorageObj);
+        getlocalstorageObj = JSON.parse(getlocalstorageObj);
+        delete getlocalstorageObj[symboltoremove];
+        console.log("After removal of symbol obj val : ", getlocalstorageObj);
+        console.log("After removal of symbol obj val stringify: ", JSON.stringify(getlocalstorageObj));
+
+        localStorage.setItem('initialTickerObj', JSON.stringify(getlocalstorageObj));
+
+        this.setState(
+            {
+                quoteFromuser: geteachString,
+                ticekrObj:getlocalstorageObjparsed
+
+            });
+        this.fetchquote(geteachString);
+    };
     formateachsymbolhtml = (responseobj) => {
         var tickerObj = responseobj;
         var tickerArray = [];
@@ -293,9 +303,19 @@ class Eachticker extends Component{
             var num = 1;
             //console.log("Gettling latest values: ",key.quote.latestPrice);
             return(
-                <div className="eachtickerblock" value={key.quote.symbol} onClick={()=>this.handleOnTickerClick(key.quote.symbol)}>
+                <div className="eachtickerblock" value={key.quote.symbol} >
                     <div className="eachticker-header">
                         {symbolElem}
+                        <div class="remove-holder">
+                            <div id="remove-ticker" className="remove-ticker-style" onClick={() => this.removeticker(key.quote.symbol)}>
+                                <div id="icon-delete" className="" >
+                                    <FontAwesome.FaMinusCircle size={20} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div onClick={()=>this.handleOnTickerClick(key.quote.symbol)}>
+                        <div className="tickerprice"><span className="dsign">$</span><span>{key.quote.latestPrice}</span></div>
                         <div className="change-container-div">
                             <div className="bracket-open">
                                 (
@@ -305,22 +325,21 @@ class Eachticker extends Component{
                                 )
                             </div>
                         </div>
-                    </div>
-                    <div className="tickerprice"><span className="dsign">$</span><span>{key.quote.latestPrice}</span></div>
+                        <div className="totalVal-div">
 
-                    <div className="totalVal-div">
+                            <div className="span-lbl-gain">Gain: </div>
+                            <div className="values-div">
+                                <div id="totalValpercent" className={this.getcolorcode(investamt)}>( % {totalgainVal} ,</div>
+                                <div id="totalVal" className={this.getcolorcode(investamt)}>$ {investamt} )</div>
+                            </div>
+                            <div className="span-lbl-gain">Value: </div>
+                            <div className="values-div">
+                                <div id="totalVal">( ${getperstockTotal} )</div>
+                            </div>
 
-                        <div className="span-lbl-gain">Gain: </div>
-                        <div className="values-div">
-                            <div id="totalValpercent" className={this.getcolorcode(investamt)}>( % {totalgainVal} ,</div>
-                            <div id="totalVal" className={this.getcolorcode(investamt)}>$ {investamt} )</div>
                         </div>
-                        <div className="span-lbl-gain">Value: </div>
-                        <div className="values-div">
-                            <div id="totalVal">( ${getperstockTotal} )</div>
-                        </div>
-
                     </div>
+
 
                 </div>
             );
@@ -336,7 +355,7 @@ class Eachticker extends Component{
 
     render(){
 
-        this.checknewtickervalue();
+
 
         var shown = {
             display: this.state.shown ? "block" : "none"

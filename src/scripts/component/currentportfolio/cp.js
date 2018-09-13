@@ -19,13 +19,13 @@ class Cportfolio extends Component{
 
     };
     getassetmarginval = (assetvalObj) => {
-        console.log("asset val obj: ", assetvalObj);
+        //console.log("asset val obj: ", assetvalObj);
         let percentagemargin = 0;
         let dollermargin = 0;
         let updownmargin = "gain-color cmn-style ac-perventage-val";
         if(assetvalObj.newassetval && assetvalObj.newassetval !== assetvalObj.oldassetval && assetvalObj.oldassetval !== 0)
         {
-            console.log("proper value in state");
+            //console.log("proper value in state");
             let newassetVal = assetvalObj.newassetval - assetvalObj.oldassetval;
             if(newassetVal > 0)
             {
@@ -41,11 +41,11 @@ class Cportfolio extends Component{
             percentagemargin = percentageGain.toFixed(2);
         }
         else{
-            console.log("zero value in state");
+            //console.log("zero value in state");
             dollermargin = "0";
             percentagemargin = "0";
         }
-        console.log("old asset value: ", assetvalObj.newassetval);
+        //console.log("old asset value: ", assetvalObj.newassetval);
 
         return(<div>(
             <div id="ac-perventage-val" className={ updownmargin }>
@@ -57,11 +57,11 @@ class Cportfolio extends Component{
             </div>
         )</div>);
 
-        console.log("after return statement");
+       // console.log("after return statement");
     };
     render(){
         const {propsfromparent} = this.props;
-        console.log("props from child component :",this.props.assetval.newassetval);
+        //console.log("props from child component :",this.props.assetval.newassetval);
         if(this.props.assetval.newassetval)
         {
             return(
@@ -71,7 +71,7 @@ class Cportfolio extends Component{
                         Virtual Portfolio
                     </div>
                     <div id="ac-value" className="cmn-style ac-value" >
-                        ${this.props.assetval.newassetval}
+                        ${this.props.assetval.newassetval.toFixed(2)}
                     </div>
                     <div className="roundbracket">{this.getassetmarginval(this.props.assetval)}</div>
 

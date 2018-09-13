@@ -16,7 +16,7 @@ class Livemarketfeed extends Component{
     fetchNews_FeedData(){
         apiobj.fetchlivefeedData()
             .then(function (response) {
-                console.log("promise feed Data: ", response.updates);
+                //console.log("promise feed Data: ", response.updates);
                 this.setState({livefeed : response.updates, isloadinglivefeed: true, livefeedArray: response.updates});
             }.bind(this));
     }

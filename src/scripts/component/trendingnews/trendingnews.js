@@ -16,7 +16,7 @@ class Trendingnews extends Component{
     fetchNews_FeedData(){
         apiobj.fetchStockNewsData()
             .then(function (response) {
-                console.log("promise news Data: ", response);
+                //console.log("promise news Data: ", response);
                 this.setState({newsdata : response[0]["title"], isloadingHeadlines: true, newsArray: response});
             }.bind(this));
     }

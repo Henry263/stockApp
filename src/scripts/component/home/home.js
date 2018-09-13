@@ -31,6 +31,7 @@ class Homepage extends Component{
             totalinvest:""
         }
     }
+    /*
     handlechildtickerval = (newVal, newObj) => {
         //console.log("from home component: ",this.props);
         const tickerObjFromCache= localStorage.getItem('initialTickerObj');
@@ -39,25 +40,24 @@ class Homepage extends Component{
         localStorage.setItem('initialTickerObj', JSON.stringify(formatedJson));
         this.setState({newtickerportfolio: newVal, newtickerObj: formatedJson});
     };
-
+    */
     getinvestmentvalue = (getvalueformchild) =>{
-        console.log("Object fron child: ",getvalueformchild);
+        ///console.log("Object fron child: ",getvalueformchild);
         this.setState({totalinvest:getvalueformchild});
     };
     componentWillMount(){
-        console.log("home componentwillmount method");
-        const defaultTickerObj = [
-            {
-                "Ticker":"AAPL",
+
+
+        const defaultTickers = {
+            "AAPL": {
                 "Qty": "15",
-                "Purchasedat": "97"
+                "Purchasedat": "97.08"
             },
-            {
-                "Ticker":"TSLA",
+            "TSLA": {
                 "Qty": "15",
-                "Purchasedat": "252"
+                "Purchasedat": "252.78"
             }
-        ];
+        };
 
         const tickerStringFromCache= localStorage.getItem('initialTickerString');
         const tickerStringWatchlist= localStorage.getItem('watchlistTickers');
@@ -69,12 +69,12 @@ class Homepage extends Component{
         if(!tickerStringFromCache)
         {
             localStorage.setItem('initialTickerString', "AAPL,TSLA");
-            localStorage.setItem('initialTickerObj', JSON.stringify(defaultTickerObj));
+            localStorage.setItem('initialTickerObj', JSON.stringify(defaultTickers));
         }
 
     }
     render(){
-        console.log("From home funcction",this.props);
+        //console.log("From home funcction",this.props);
             return(
 
                 <Router>

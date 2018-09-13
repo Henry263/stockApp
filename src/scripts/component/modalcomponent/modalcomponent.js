@@ -35,9 +35,9 @@ class Modalcomp extends Component{
     clsoemodalnpasstickerval = () => {
        // console.log("printing state values: ",this.props.location.pathname );
         const tickerObj = {};
-        tickerObj["Ticker"] = this.state.newtickerVal;
-        tickerObj["Qty"] = this.state.tickerQty;
-        tickerObj["Purchasedat"] = this.state.tickerprice;
+        tickerObj[this.state.newtickerVal] = {};
+        tickerObj[this.state.newtickerVal]["Qty"] = this.state.tickerQty;
+        tickerObj[this.state.newtickerVal]["Purchasedat"] = this.state.tickerprice;
         this.props.handlerFrommodaltohome(this.state.newtickerVal, tickerObj);
 
         this.setState({showmodal: false, newtickerVal:"", tickerQty:"", tickerprice:""});
